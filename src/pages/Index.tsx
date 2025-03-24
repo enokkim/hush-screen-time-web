@@ -54,6 +54,14 @@ const Index = () => {
         <div className="absolute inset-0 leaf-pattern opacity-30" />
         
         <div className="container-tight relative z-10">
+          <div className="flex flex-col items-center mb-8">
+            <img 
+              src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png" 
+              alt="Hush Logo" 
+              className="w-24 h-24 mb-4"
+            />
+          </div>
+          
           <div className="text-center mb-10 md:mb-16 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4 font-medium tracking-tight">
               Hush: Stay Present, Stay Focused
@@ -114,6 +122,14 @@ const Index = () => {
       {/* Footer Section */}
       <footer className="py-16 px-4 bg-white border-t">
         <div className="container-tight">
+          <div className="flex flex-col items-center justify-center mb-10">
+            <img 
+              src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png" 
+              alt="Hush Logo" 
+              className="w-16 h-16 mb-6"
+            />
+          </div>
+          
           <div className="max-w-md mx-auto text-center mb-10">
             <h3 className="text-2xl font-medium mb-4">
               Be the first to experience Hush

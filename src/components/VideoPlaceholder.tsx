@@ -24,9 +24,16 @@ const VideoPlaceholder = ({ className }: VideoPlaceholderProps) => {
           <Play className="w-8 h-8 text-focus-green group-hover:scale-110 transition-transform duration-300" fill="rgba(34, 197, 94, 0.2)" />
         </button>
         
-        <h3 className="text-xl md:text-2xl font-medium text-foreground/90 backdrop-blur-sm py-2 px-4 rounded-full bg-white/30">
-          See how Hush works
-        </h3>
+        <div className="flex items-center justify-center mb-3">
+          <img 
+            src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png" 
+            alt="Hush Logo" 
+            className="w-10 h-10 mr-2"
+          />
+          <h3 className="text-xl md:text-2xl font-medium text-foreground/90 backdrop-blur-sm py-2 px-4 rounded-full bg-white/30">
+            See how Hush works
+          </h3>
+        </div>
         
         <p className="mt-2 text-sm text-foreground/70 max-w-md backdrop-blur-sm py-1 px-3 rounded-full bg-white/20">
           Watch the Hush experience in action
