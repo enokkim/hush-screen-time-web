@@ -19,17 +19,17 @@ const VideoPlaceholder = ({ className }: VideoPlaceholderProps) => {
       <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
         <button 
           className="mb-4 w-20 h-20 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300 group"
-          aria-label="Play demo video"
+          aria-label="Play Hush demo video"
         >
           <Play className="w-8 h-8 text-focus-green group-hover:scale-110 transition-transform duration-300" fill="rgba(34, 197, 94, 0.2)" />
         </button>
         
         <h3 className="text-xl md:text-2xl font-medium text-foreground/90 backdrop-blur-sm py-2 px-4 rounded-full bg-white/30">
-          See how it works
+          See how Hush works
         </h3>
         
         <p className="mt-2 text-sm text-foreground/70 max-w-md backdrop-blur-sm py-1 px-3 rounded-full bg-white/20">
-          Your demo video will appear here
+          Watch the Hush experience in action
         </p>
       </div>
     </div>

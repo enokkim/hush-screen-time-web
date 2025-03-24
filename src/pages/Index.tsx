@@ -11,7 +11,7 @@ const Index = () => {
   const features = [
     {
       title: "Tap to Lock",
-      description: "Lock distracting apps with a single tap of your physical key",
+      description: "Lock distracting apps with a single tap of your Hush Key",
       icon: Lock,
     },
     {
@@ -29,9 +29,9 @@ const Index = () => {
   const howItWorksSteps = [
     {
       number: 1,
-      title: "Place the Focus Key",
-      description: "Put your physical Focus Key on its dock or wear it as a bracelet",
-      imageUrl: "https://placehold.co/100x100/22c55e/FFFFFF?text=Key",
+      title: "Place the Hush Key",
+      description: "Put your physical Hush Key on its dock or wear it as a bracelet",
+      imageUrl: "https://placehold.co/100x100/22c55e/FFFFFF?text=Hush",
     },
     {
       number: 2,
@@ -42,7 +42,7 @@ const Index = () => {
     {
       number: 3,
       title: "Tap to Unlock",
-      description: "When you're ready, tap the Focus Key to regain access",
+      description: "When you're ready, tap the Hush Key to regain access",
       imageUrl: "https://placehold.co/100x100/22c55e/FFFFFF?text=Tap",
     },
   ];
@@ -56,7 +56,7 @@ const Index = () => {
         <div className="container-tight relative z-10">
           <div className="text-center mb-10 md:mb-16 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4 font-medium tracking-tight">
-              Stay Present, Stay Focused
+              Hush: Stay Present, Stay Focused
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
               A physical key to unlock digital distractions—only when you're ready
@@ -70,7 +70,7 @@ const Index = () => {
           <div className="max-w-md mx-auto text-center">
             <EmailForm />
             <p className="mt-3 text-sm text-muted-foreground">
-              Join our waitlist to be the first to know when we launch
+              Join our waitlist to be the first to know when Hush launches
             </p>
           </div>
         </div>
@@ -80,7 +80,7 @@ const Index = () => {
       <section className="section bg-gradient-to-b from-white to-secondary/30">
         <div className="container-tight">
           <h2 className="text-3xl md:text-4xl font-medium text-center mb-12">
-            Reclaim Your Attention
+            Reclaim Your Attention with Hush
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -91,7 +91,6 @@ const Index = () => {
                 description={feature.description}
                 icon={feature.icon}
                 className="animate-fade-in"
-                style={{ animationDelay: `${index * 150}ms` }}
               />
             ))}
           </div>
@@ -102,10 +101,10 @@ const Index = () => {
       <section className="section bg-focus-green/5">
         <div className="container-tight">
           <h2 className="text-3xl md:text-4xl font-medium text-center mb-6">
-            How It Works
+            How Hush Works
           </h2>
           <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
-            Our Focus Key works seamlessly with your iOS devices to help you maintain focus
+            Hush works seamlessly with your iOS devices to help you maintain focus
           </p>
           
           <HowItWorks steps={howItWorksSteps} />
@@ -117,7 +116,7 @@ const Index = () => {
         <div className="container-tight">
           <div className="max-w-md mx-auto text-center mb-10">
             <h3 className="text-2xl font-medium mb-4">
-              Be the first to experience it
+              Be the first to experience Hush
             </h3>
             <EmailForm
               buttonText="Join Waitlist"
@@ -132,14 +131,14 @@ const Index = () => {
             <div className="flex items-center justify-center mb-6">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm">
                 <Smartphone className="w-4 h-4 text-focus-green" />
-                <span className="text-sm">Coming soon to iOS</span>
+                <span className="text-sm">Hush is coming soon to iOS</span>
               </div>
             </div>
             
             <Separator className="mb-6 max-w-xs w-full" />
             
             <p className="text-sm text-muted-foreground text-center">
-              © {new Date().getFullYear()} Focus Key. All rights reserved.
+              © {new Date().getFullYear()} Hush. All rights reserved.
             </p>
           </div>
         </div>
