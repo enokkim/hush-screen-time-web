@@ -24,20 +24,47 @@ export default function WaitlistModal({ isOpen, onClose, email }: WaitlistModalP
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call with timeout
-    setTimeout(() => {
-      console.log({
-        firstName,
-        lastName,
-        email,
-        source,
-        isEuropeBased,
-      });
-      
+    // Prepare the form data
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      source,
+      isEuropeBased,
+      timestamp: new Date().toISOString()
+    };
+
+    console.log("Submitting waitlist data:", formData);
+    
+    // Send data to Google Sheets using the Apps Script web app URL
+    fetch("https://script.google.com/macros/s/AKfycbzQe4ySuK0QZ8jRAUXQ4oK0GZvjE4lU2PsWGLrYq-oHR3W5KIYLq0jBT0uAVL7GOxQo/exec", {
+      method: "POST",
+      mode: "no-cors", // This is important for CORS issues
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+    .then(() => {
+      // We can't actually read the response due to no-cors mode
+      // So we just assume success
       toast.success("Thanks for requesting early access to Hush!");
       setIsSubmitting(false);
+      resetForm();
       onClose();
-    }, 1000);
+    })
+    .catch((error) => {
+      console.error("Error submitting waitlist data:", error);
+      toast.error("Something went wrong. Please try again.");
+      setIsSubmitting(false);
+    });
+  };
+
+  const resetForm = () => {
+    setFirstName("");
+    setLastName("");
+    setSource("");
+    setIsEuropeBased(false);
   };
 
   return (
