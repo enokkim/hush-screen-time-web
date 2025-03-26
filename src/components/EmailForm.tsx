@@ -28,11 +28,7 @@ const EmailForm = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateEmail(email)) {
-      toast.error("Please enter a valid email address");
-      return;
-    }
-    
+    // Open modal immediately without validating email
     setIsSubmitting(true);
     
     // Show modal instead of success message
@@ -62,7 +58,6 @@ const EmailForm = ({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="h-12 bg-white/80 backdrop-blur-sm border-focus-green/20 focus:border-focus-green"
-          required
           aria-label="Email address"
         />
         <Button

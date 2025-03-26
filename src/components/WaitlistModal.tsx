@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { X } from "lucide-react";
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -48,13 +47,6 @@ export default function WaitlistModal({ isOpen, onClose, email }: WaitlistModalP
           <DialogTitle className="text-2xl font-bold tracking-tight">
             REQUEST EARLY ACCESS
           </DialogTitle>
-          <button 
-            onClick={onClose} 
-            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none"
-          >
-            <X className="h-5 w-5" />
-            <span className="sr-only">Close</span>
-          </button>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-6">
