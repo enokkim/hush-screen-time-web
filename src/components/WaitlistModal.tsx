@@ -36,18 +36,18 @@ export default function WaitlistModal({ isOpen, onClose, email }: WaitlistModalP
 
     console.log("Submitting waitlist data:", formData);
     
-    // Send data to Google Sheets using the Apps Script web app URL
-    fetch("https://script.google.com/macros/s/AKfycbzQe4ySuK0QZ8jRAUXQ4oK0GZvjE4lU2PsWGLrYq-oHR3W5KIYLq0jBT0uAVL7GOxQo/exec", {
+    // Using FormSubmit.co as a simple form submission service
+    // This will send the data to your email address without requiring any authentication
+    fetch("https://formsubmit.co/kzenok123@gmail.com", {
       method: "POST",
-      mode: "no-cors", // This is important for CORS issues
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(formData),
     })
+    .then((response) => response.json())
     .then(() => {
-      // We can't actually read the response due to no-cors mode
-      // So we just assume success
       toast.success("Thanks for requesting early access to Hush!");
       setIsSubmitting(false);
       resetForm();
