@@ -13,9 +13,10 @@ interface WaitlistModalProps {
   email: string;
 }
 
-export default function WaitlistModal({ isOpen, onClose, email }: WaitlistModalProps) {
+export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: WaitlistModalProps) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState(initialEmail);
   const [source, setSource] = useState("");
   const [isEuropeBased, setIsEuropeBased] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,7 +39,7 @@ export default function WaitlistModal({ isOpen, onClose, email }: WaitlistModalP
     
     // Using FormSubmit.co as a simple form submission service
     // This will send the data to your email address without requiring any authentication
-    fetch("https://formsubmit.co/kzenok123@gmail.com", {
+    fetch("https://formsubit.co/kzenok123@gmail.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,6 +64,7 @@ export default function WaitlistModal({ isOpen, onClose, email }: WaitlistModalP
   const resetForm = () => {
     setFirstName("");
     setLastName("");
+    setEmail(initialEmail);
     setSource("");
     setIsEuropeBased(false);
   };
@@ -101,8 +103,10 @@ export default function WaitlistModal({ isOpen, onClose, email }: WaitlistModalP
           <div className="space-y-2">
             <Input
               type="email"
+              placeholder="EMAIL ADDRESS"
               value={email}
-              readOnly
+              onChange={(e) => setEmail(e.target.value)}
+              required
               className="h-12"
             />
           </div>
