@@ -79,7 +79,6 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
       if (formSubmitResponse.status === 200) {
         console.log("Form submission successful");
         toast.success("Thanks for requesting early access to Hush!");
-        
         resetForm();
         onClose();
       } else {
