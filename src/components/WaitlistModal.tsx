@@ -44,18 +44,35 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
 
     console.log("Submitting waitlist data:", formData);
     
-    // Using FormSubmit.co as a simple form submission service
-    fetch("https://formsubmit.co/contact@hushscreentime.com", {
+    // For FormSubmit.co to work properly, the first submission to a new email address
+    // will send an activation email rather than forwarding the form submission
+    // After activation, submissions will be forwarded to your email
+    const formUrl = "https://formsubmit.co/contact@hushscreentime.com";
+    
+    fetch(formUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        ...formData,
+        _subject: `Hush Waitlist - New Signup: ${email}`, // Makes the email subject clearer
+        _captcha: "false", // Disable captcha for better UX
+      }),
     })
     .then((response) => {
       // Handle success regardless of response format
+      console.log("Form submission response status:", response.status);
       toast.success("Thanks for requesting early access to Hush!");
+      
+      // Show an additional informational toast about email activation if needed
+      if (response.status === 200) {
+        toast.info("If this is your first submission, please check your inbox for an activation email from FormSubmit.", {
+          duration: 8000,
+        });
+      }
+      
       setIsSubmitting(false);
       resetForm();
       onClose();
