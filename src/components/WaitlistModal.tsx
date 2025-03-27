@@ -21,6 +21,13 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
   const [isEuropeBased, setIsEuropeBased] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Update email state when initialEmail prop changes
+  useState(() => {
+    if (initialEmail) {
+      setEmail(initialEmail);
+    }
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -145,7 +152,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
           
           <Button 
             type="submit" 
-            className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white"
+            className="w-full h-12 bg-focus-green hover:bg-focus-green-dark text-white"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Processing..." : "SIGN UP"}
