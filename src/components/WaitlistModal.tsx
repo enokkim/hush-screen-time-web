@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -47,7 +46,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
     // For FormSubmit.co to work properly, the first submission to a new email address
     // will send an activation email rather than forwarding the form submission
     // After activation, submissions will be forwarded to your email
-    const formUrl = "https://formsubmit.co/contact@hushscreentime.com";
+    const formUrl = "https://formsubmit.co/ajax/contact@hushscreentime.com";
     
     fetch(formUrl, {
       method: "POST",
@@ -59,6 +58,8 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
         ...formData,
         _subject: `Hush Waitlist - New Signup: ${email}`, // Makes the email subject clearer
         _captcha: "false", // Disable captcha for better UX
+        _template: "table", // Use table format for better email readability
+        _replyto: email, // Allow replying to the submitter
       }),
     })
     .then((response) => {
