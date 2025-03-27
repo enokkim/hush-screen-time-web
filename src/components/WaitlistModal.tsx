@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -38,7 +38,6 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
     console.log("Submitting waitlist data:", formData);
     
     // Using FormSubmit.co as a simple form submission service
-    // This will send the data to your email address without requiring any authentication
     fetch("https://formsubmit.co/contact@hushscreentime.com", {
       method: "POST",
       headers: {
@@ -47,8 +46,8 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
       },
       body: JSON.stringify(formData),
     })
-    .then((response) => response.json())
-    .then(() => {
+    .then((response) => {
+      // Handle success regardless of response format
       toast.success("Thanks for requesting early access to Hush!");
       setIsSubmitting(false);
       resetForm();
@@ -76,6 +75,9 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
           <DialogTitle className="text-2xl font-bold tracking-tight">
             REQUEST EARLY ACCESS
           </DialogTitle>
+          <DialogDescription className="text-gray-500 mt-2">
+            Fill out this form to join our waitlist for early access.
+          </DialogDescription>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-6">
