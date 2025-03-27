@@ -64,18 +64,39 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
       // Send to Google Sheets for data collection
       const sheetsUrl = 'https://script.google.com/macros/s/AKfycbycC6Ddy26fgWBKc7k1N5DAkOXb1KDHa3MbUVY9c5UeEz8mhut3ZhvX-rcf8kPYavuJhA/exec';
       
-      // Use no-cors mode to avoid CORS issues
-      const sheetsResponse = await fetch(sheetsUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      try {
+        // First make a preflight request
+        const sheetsResponse = await fetch(sheetsUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
 
-      // Since we're using no-cors, we won't get a proper response status
-      // We'll consider the FormSubmit success as our primary indicator
+        if (!sheetsResponse.ok) {
+          console.error('Google Sheets submission failed:', await sheetsResponse.text());
+        }
+      } catch (sheetsError) {
+        // Log sheets error but don't fail the whole submission
+        console.error('Google Sheets submission error:', sheetsError);
+        
+        // Fallback to no-cors if regular request fails
+        try {
+          await fetch(sheetsUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+        } catch (fallbackError) {
+          console.error('Google Sheets fallback submission failed:', fallbackError);
+        }
+      }
+
+      // Only check FormSubmit status for user feedback
       if (formSubmitResponse.status === 200) {
         console.log("Form submission successful");
         toast.success("Thanks for requesting early access to Hush!");
