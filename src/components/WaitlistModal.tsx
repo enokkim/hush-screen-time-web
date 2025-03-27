@@ -39,7 +39,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
     
     // Using FormSubmit.co as a simple form submission service
     // This will send the data to your email address without requiring any authentication
-    fetch("https://formsubit.co/kzenok123@gmail.com", {
+    fetch("https://formsubmit.co/contact@hushscreentime.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
