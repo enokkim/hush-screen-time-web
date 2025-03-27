@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,17 +16,17 @@ interface WaitlistModalProps {
 export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: WaitlistModalProps) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState(initialEmail);
+  const [email, setEmail] = useState(initialEmail || "");
   const [source, setSource] = useState("");
   const [isEuropeBased, setIsEuropeBased] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Update email state when initialEmail prop changes
-  useState(() => {
+  // Use useEffect instead of useState to update email when initialEmail changes
+  useEffect(() => {
     if (initialEmail) {
       setEmail(initialEmail);
     }
-  });
+  }, [initialEmail]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,7 +70,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
   const resetForm = () => {
     setFirstName("");
     setLastName("");
-    setEmail(initialEmail);
+    setEmail(initialEmail || "");
     setSource("");
     setIsEuropeBased(false);
   };
