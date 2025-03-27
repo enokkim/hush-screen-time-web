@@ -27,7 +27,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
     }
   }, [initialEmail]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -43,46 +43,54 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
 
     console.log("Submitting waitlist data:", formData);
     
-    // For FormSubmit.co to work properly, the first submission to a new email address
-    // will send an activation email rather than forwarding the form submission
-    // After activation, submissions will be forwarded to your email
-    const formUrl = "https://formsubmit.co/ajax/contact@hushscreentime.com";
-    
-    fetch(formUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        ...formData,
-        _subject: `Hush Waitlist - New Signup: ${email}`, // Makes the email subject clearer
-        _captcha: "false", // Disable captcha for better UX
-        _template: "table", // Use table format for better email readability
-        _replyto: email, // Allow replying to the submitter
-      }),
-    })
-    .then((response) => {
-      // Handle success regardless of response format
-      console.log("Form submission response status:", response.status);
-      toast.success("Thanks for requesting early access to Hush!");
+    try {
+      // Send to FormSubmit for email notifications
+      const formSubmitUrl = "https://formsubmit.co/ajax/contact@hushscreentime.com";
+      const formSubmitResponse = await fetch(formSubmitUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          _subject: `Hush Waitlist - New Signup: ${email}`,
+          _captcha: "false",
+          _template: "table",
+          _replyto: email,
+        }),
+      });
+
+      // Send to Google Sheets for data collection
+      const sheetsUrl = 'https://script.google.com/macros/s/AKfycbycC6Ddy26fgWBKc7k1N5DAkOXb1KDHa3MbUVY9c5UeEz8mhut3ZhvX-rcf8kPYavuJhA/exec';
       
-      // Show an additional informational toast about email activation if needed
-      if (response.status === 200) {
-        toast.info("If this is your first submission, please check your inbox for an activation email from FormSubmit.", {
-          duration: 8000,
-        });
+      // Use no-cors mode to avoid CORS issues
+      const sheetsResponse = await fetch(sheetsUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      // Since we're using no-cors, we won't get a proper response status
+      // We'll consider the FormSubmit success as our primary indicator
+      if (formSubmitResponse.status === 200) {
+        console.log("Form submission successful");
+        toast.success("Thanks for requesting early access to Hush!");
+        
+        resetForm();
+        onClose();
+      } else {
+        throw new Error('Form submission failed');
       }
-      
-      setIsSubmitting(false);
-      resetForm();
-      onClose();
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error("Error submitting waitlist data:", error);
       toast.error("Something went wrong. Please try again.");
+    } finally {
       setIsSubmitting(false);
-    });
+    }
   };
 
   const resetForm = () => {
