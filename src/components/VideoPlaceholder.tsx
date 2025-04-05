@@ -4,28 +4,32 @@ import { cn } from "@/lib/utils";
 
 interface VideoPlaceholderProps {
   className?: string;
-  vimeoId: string;
 }
 
-const VideoPlaceholder = ({ className, vimeoId }: VideoPlaceholderProps) => {
+const VideoPlaceholder = ({ className }: VideoPlaceholderProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
+
+  // 👇 Vimeo embed URL with required private hash
+  const vimeoUrl = "https://player.vimeo.com/video/1072827238?h=34827e902e&autoplay=1&title=0&byline=0&portrait=0";
 
   return (
     <div
       className={cn(
-        "relative rounded-2xl overflow-hidden aspect-video w-full max-w-5xl mx-auto bg-gradient-to-br from-focus-blue/5 to-focus-green/10 shadow-sm",
+        "relative aspect-video w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-sm bg-gradient-to-br from-focus-blue/5 to-focus-green/10",
         className
       )}
     >
       {isPlaying ? (
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`}
-          className="absolute top-0 left-0 w-full h-full"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-          title="Vimeo Video Player"
-        ></iframe>
+        <div className="absolute inset-0">
+          <iframe
+            src={vimeoUrl}
+            className="absolute top-0 left-0 w-full h-full"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            title="Hush Demo Video"
+          />
+        </div>
       ) : (
         <>
           <div className="absolute inset-0 leaf-pattern opacity-50" />
