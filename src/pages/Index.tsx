@@ -1,11 +1,9 @@
 
 import { Lock, Circle, Clock, Smartphone } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import EmailForm from "@/components/EmailForm";
 import FeatureCard from "@/components/FeatureCard";
 import VideoPlaceholder from "@/components/VideoPlaceholder";
-import HowItWorks from "@/components/HowItWorks";
 
 const Index = () => {
   const features = [
@@ -52,16 +50,16 @@ const Index = () => {
       {/* Hero Section */}
       <section className="pt-16 pb-8 md:pt-28 md:pb-16 px-4 relative overflow-hidden">
         <div className="absolute inset-0 leaf-pattern opacity-30" />
-        
+
         <div className="container-tight relative z-10">
           <div className="flex flex-col items-center mb-8">
-            <img 
-              src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png" 
-              alt="Hush Logo" 
+            <img
+              src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png"
+              alt="Hush Logo"
               className="w-24 h-24 mb-4"
             />
           </div>
-          
+
           <div className="text-center mb-10 md:mb-16 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4 font-medium tracking-tight">
               Hush: Stay Present, Stay Focused
@@ -90,7 +88,7 @@ const Index = () => {
           <h2 className="text-3xl md:text-4xl font-medium text-center mb-12">
             Reclaim Your Attention with Hush
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {features.map((feature, index) => (
               <FeatureCard
@@ -105,31 +103,17 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="section bg-focus-green/5">
-        <div className="container-tight">
-          <h2 className="text-3xl md:text-4xl font-medium text-center mb-6">
-            How Hush Works
-          </h2>
-          <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
-            Hush works seamlessly with your iOS devices to help you maintain focus
-          </p>
-          
-          <HowItWorks steps={howItWorksSteps} />
-        </div>
-      </section>
-
       {/* Footer Section */}
       <footer className="py-16 px-4 bg-white border-t">
         <div className="container-tight">
           <div className="flex flex-col items-center justify-center mb-10">
-            <img 
-              src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png" 
-              alt="Hush Logo" 
+            <img
+              src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png"
+              alt="Hush Logo"
               className="w-16 h-16 mb-6"
             />
           </div>
-          
+
           <div className="max-w-md mx-auto text-center mb-10">
             <h3 className="text-2xl font-medium mb-4">
               Be the first to experience Hush
@@ -142,7 +126,7 @@ const Index = () => {
               We'll only email you about product updates
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center mb-6">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm">
@@ -150,9 +134,13 @@ const Index = () => {
                 <span className="text-sm">Hush is coming soon to iOS</span>
               </div>
             </div>
-            
+
             <Separator className="mb-6 max-w-xs w-full" />
-            
+            <p className="text-sm text-muted-foreground text-center underline">
+              <a href="mailto:contact@hushscreen.com">Contact Us</a>
+            </p>
+
+
             <p className="text-sm text-muted-foreground text-center">
               © {new Date().getFullYear()} Hush. All rights reserved.
             </p>

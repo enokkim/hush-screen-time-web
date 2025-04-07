@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface VideoPlaceholderProps {
@@ -7,62 +5,31 @@ interface VideoPlaceholderProps {
 }
 
 const VideoPlaceholder = ({ className }: VideoPlaceholderProps) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  // 👇 Vimeo embed URL with required private hash
-  const vimeoUrl = "https://player.vimeo.com/video/1072827238?h=34827e902e&autoplay=1&title=0&byline=0&portrait=0";
+  const vimeoUrl =
+    "https://player.vimeo.com/video/1072827238?h=34827e902e&autoplay=1&title=0&byline=0&portrait=0";
 
   return (
-    <div
-      className={cn(
-        "relative aspect-video w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-sm bg-gradient-to-br from-focus-blue/5 to-focus-green/10",
-        className
-      )}
-    >
-      {isPlaying ? (
-        <div className="absolute inset-0">
-          <iframe
-            src={vimeoUrl}
-            className="absolute top-0 left-0 w-full h-full"
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-            title="Hush Demo Video"
-          />
-        </div>
-      ) : (
-        <>
-          <div className="absolute inset-0 leaf-pattern opacity-50" />
+    <div className={cn("w-full px-4 py-12 text-center", className)}>
+      <div className="space-y-4 mb-10">
+        <p className="text-xl md:text-2xl font-semibold text-muted-foreground max-w-2xl mx-auto">
+          Quick one-time setup.
+        </p>
 
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-            <button
-              onClick={() => setIsPlaying(true)}
-              className="mb-4 w-20 h-20 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300 group"
-              aria-label="Play Hush demo video"
-            >
-              <Play
-                className="w-8 h-8 text-focus-green group-hover:scale-110 transition-transform duration-300"
-                fill="rgba(34, 197, 94, 0.2)"
-              />
-            </button>
+        <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+          Watch how to set up Hush – you'll only need to do this once.
+        </p>
+      </div>
 
-            <div className="flex items-center justify-center mb-3">
-              <img
-                src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png"
-                alt="Hush Logo"
-                className="w-10 h-10 mr-2"
-              />
-              <h3 className="text-xl md:text-2xl font-medium text-foreground/90 backdrop-blur-sm py-2 px-4 rounded-full bg-white/30">
-                See how Hush works
-              </h3>
-            </div>
-
-            <p className="mt-2 text-sm text-foreground/70 max-w-md backdrop-blur-sm py-1 px-3 rounded-full bg-white/20">
-              Watch the Hush experience in action
-            </p>
-          </div>
-        </>
-      )}
+      <div className="relative aspect-video w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-sm">
+        <iframe
+          src={vimeoUrl}
+          className="absolute top-0 left-0 w-full h-full"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          title="Hush Demo Video"
+        />
+      </div>
     </div>
   );
 };
