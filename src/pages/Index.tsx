@@ -1,4 +1,3 @@
-
 import { Lock, Circle, Clock, Smartphone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import EmailForm from "@/components/EmailForm";
@@ -69,15 +68,15 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="mb-10 md:mb-16 animate-scale-in">
-            <VideoPlaceholder />
-          </div>
-
-          <div className="max-w-md mx-auto text-center">
+          <div className="max-w-md mx-auto text-center mb-10">
             <EmailForm />
             <p className="mt-3 text-sm text-muted-foreground">
               Join our waitlist to be the first to know when Hush launches
             </p>
+          </div>
+
+          <div className="mb-10 md:mb-16 animate-scale-in">
+            <VideoPlaceholder />
           </div>
         </div>
       </section>
