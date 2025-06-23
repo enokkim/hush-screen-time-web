@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import { HushContext } from '../context/HushContext';
 import EmailForm from "@/components/EmailForm";
 
@@ -23,14 +23,26 @@ const Store = () => {
     const navigate = useNavigate();
     const { isHushed } = useContext(HushContext);
     const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
     const navbarBg = isHushed ? '#000' : '#fff';
     const navbarTextClass = isHushed ? 'text-white' : 'text-gray-700';
 
+    useEffect(() => {
+        if (!menuOpen) return;
+        function handleClick(e: MouseEvent) {
+            if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+                setMenuOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClick);
+        return () => document.removeEventListener('mousedown', handleClick);
+    }, [menuOpen]);
+
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-[#f6f6fa]">
+        <div className={`min-h-screen flex flex-col items-center justify-center ${isHushed ? 'bg-[#7a7a7a] text-white' : 'bg-[#f6f6fa] text-black'}`}>
             {/* Navbar */}
             <nav className="w-full flex justify-center mb-12 pt-6 px-4 md:px-10 fixed top-0 left-0 z-20" style={{ pointerEvents: 'auto' }}>
-                <div className="flex items-center justify-between w-full max-w-4xl px-6 md:px-10 py-3 rounded-full shadow-md" style={{ minHeight: 56, background: navbarBg }}>
+                <div className="flex items-center justify-between w-full max-w-4xl px-6 md:px-10 py-3 rounded-full shadow-md" style={{ minHeight: 56, background: navbarBg }} ref={menuRef}>
                     <div className="relative">
                         <button className={`p-2 ${navbarTextClass}`} aria-label="Menu" onClick={() => setMenuOpen((v) => !v)}>
                             <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={navbarTextClass}>
@@ -40,9 +52,9 @@ const Store = () => {
                             </svg>
                         </button>
                         {menuOpen && (
-                            <div className="absolute left-0 mt-2 w-40 rounded-xl shadow-lg bg-white border border-gray-200 z-50 flex flex-col text-left">
-                                <a href="/store" className="px-5 py-3 hover:bg-gray-100 text-black font-medium">Shop</a>
-                                <a href="mailto:contact@hushscreen.com" className="px-5 py-3 hover:bg-gray-100 text-black font-medium rounded-b-xl" onClick={() => setMenuOpen(false)}>Contact Us</a>
+                            <div className={`absolute left-0 mt-2 w-40 rounded-xl shadow-lg z-50 flex flex-col text-left ${isHushed ? 'bg-black' : 'bg-white'} ${isHushed ? '' : 'border border-gray-200'}`}>
+                                <a href="/store" className={`px-5 py-3 font-medium ${isHushed ? 'text-white hover:bg-white/10' : 'text-black hover:bg-gray-100'}`}>Shop</a>
+                                <a href="mailto:contact@hushscreen.com" className={`px-5 py-3 font-medium rounded-b-xl ${isHushed ? 'text-white hover:bg-white/10' : 'text-black hover:bg-gray-100'}`} onClick={() => setMenuOpen(false)}>Contact Us</a>
                             </div>
                         )}
                     </div>
@@ -61,7 +73,7 @@ const Store = () => {
             </nav>
             {/* Main content perfectly centered below navbar */}
             <div className="flex-1 flex flex-col items-center justify-center w-full px-4">
-                <div className="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center">
+                <div className={`${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
                     <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>Join the Waitlist</h1>
                     <p className="text-gray-500 mb-6 text-center" style={{ fontFamily: 'Nunito, sans-serif' }}>
                         Be the first to know when the app launches and get exclusive early access!

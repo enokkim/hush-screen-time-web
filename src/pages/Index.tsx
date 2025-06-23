@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import EmailForm from "@/components/EmailForm";
 import FeatureCard from "@/components/FeatureCard";
 import VideoPlaceholder from "@/components/VideoPlaceholder";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { HushContext } from "../context/HushContext";
 
 const PixelText = ({ children }: { children: string }) => (
@@ -26,6 +26,18 @@ const Index = () => {
   const { isHushed, setIsHushed } = useContext(HushContext);
   const [isBouncing, setIsBouncing] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    function handleClick(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [menuOpen]);
 
   const features = [
     {
@@ -82,7 +94,7 @@ const Index = () => {
         <div className="flex items-center justify-between w-full max-w-4xl px-6 md:px-10 py-3 rounded-full shadow-md"
           style={{ minHeight: 56, background: navbarBg }}>
           {/* Hamburger */}
-          <div className="relative">
+          <div className="relative" ref={menuRef}>
             <button className={`p-2 ${navbarTextClass}`} aria-label="Menu" onClick={() => setMenuOpen((v) => !v)}>
               <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={navbarTextClass}>
                 <line x1="6" y1="9" x2="22" y2="9" />
@@ -91,9 +103,9 @@ const Index = () => {
               </svg>
             </button>
             {menuOpen && (
-              <div className="absolute left-0 mt-2 w-40 rounded-xl shadow-lg bg-white border border-gray-200 z-50 flex flex-col text-left">
-                <a href="/store" className="px-5 py-3 hover:bg-gray-100 text-black font-medium">Shop</a>
-                <a href="mailto:contact@hushscreen.com" className="px-5 py-3 hover:bg-gray-100 text-black font-medium rounded-b-xl" onClick={() => setMenuOpen(false)}>Contact Us</a>
+              <div className={`absolute left-0 mt-2 w-40 rounded-xl shadow-lg z-50 flex flex-col text-left ${isHushed ? 'bg-black' : 'bg-white'} ${isHushed ? '' : 'border border-gray-200'}`}>
+                <a href="/store" className={`px-5 py-3 font-medium ${isHushed ? 'text-white hover:bg-white/10' : 'text-black hover:bg-gray-100'}`}>Shop</a>
+                <a href="mailto:contact@hushscreen.com" className={`px-5 py-3 font-medium rounded-b-xl ${isHushed ? 'text-white hover:bg-white/10' : 'text-black hover:bg-gray-100'}`} onClick={() => setMenuOpen(false)}>Contact Us</a>
               </div>
             )}
           </div>
