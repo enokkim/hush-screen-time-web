@@ -1,7 +1,23 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Nunito Font */
+@font-face {
+  font-family: 'Nunito';
+  src: url('/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/Nunito-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 1000;
+  font-style: italic;
+  font-display: swap;
+}
 
 @layer base {
   :root {
@@ -84,22 +100,34 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+    font-family: 'Nunito', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply tracking-tight font-medium;
   }
 
   .glass-card {
     @apply border bg-white/50 backdrop-blur-md shadow-sm;
   }
-  
+
   .section {
     @apply py-20 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto;
   }
 
   .container-tight {
     @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer components {
+  .font-nunito {
+    font-family: 'Nunito', sans-serif;
   }
 }
 
@@ -113,6 +141,7 @@
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
@@ -122,4 +151,20 @@
   animation: shimmer 2s infinite linear;
   background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
   background-size: 1000px 100%;
+}
+
+@keyframes bounce-once {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.92);
+  }
+}
+
+.animate-bounce-once {
+  animation: bounce-once 0.3s ease-in-out 1;
 }

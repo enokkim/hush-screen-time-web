@@ -1,151 +1,170 @@
-import { Lock, Circle, Clock, Smartphone } from "lucide-react";
+import { Lock, Circle, Clock, Smartphone, CheckCircle, Users, Zap, Shield } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import EmailForm from "@/components/EmailForm";
 import FeatureCard from "@/components/FeatureCard";
 import VideoPlaceholder from "@/components/VideoPlaceholder";
+import { useContext, useState } from "react";
+import { HushContext } from "../context/HushContext";
+
+const PixelText = ({ children }: { children: string }) => (
+  <span
+    style={{
+      fontFamily: 'monospace',
+      letterSpacing: '0.2em',
+      fontWeight: 700,
+      fontSize: '1.3rem',
+      textTransform: 'uppercase',
+      textShadow: '0 1px 0 #888',
+    }}
+    className="tracking-widest"
+  >
+    {children}
+  </span>
+);
 
 const Index = () => {
+  const { isHushed, setIsHushed } = useContext(HushContext);
+  const [isBouncing, setIsBouncing] = useState(false);
+
   const features = [
     {
       title: "Tap to Lock",
       description: "Lock distracting apps with a single tap of your Hush Key",
       icon: Lock,
+      gradient: "from-green-500 to-emerald-600",
     },
     {
       title: "Be Present",
       description: "Stay engaged in the real world without digital interruptions",
       icon: Circle,
+      gradient: "from-blue-500 to-indigo-600",
     },
     {
       title: "Tap to Return",
       description: "Access your apps only when you consciously choose to",
       icon: Clock,
+      gradient: "from-purple-500 to-pink-600",
     },
   ];
 
-  const howItWorksSteps = [
-    {
-      number: 1,
-      title: "Place the Hush Key",
-      description: "Put your physical Hush Key on its dock or wear it as a bracelet",
-      imageUrl: "https://placehold.co/100x100/22c55e/FFFFFF?text=Hush",
-    },
-    {
-      number: 2,
-      title: "Apps Lock Automatically",
-      description: "Your selected distracting apps become inaccessible",
-      imageUrl: "https://placehold.co/100x100/3b82f6/FFFFFF?text=Lock",
-    },
-    {
-      number: 3,
-      title: "Tap to Unlock",
-      description: "When you're ready, tap the Hush Key to regain access",
-      imageUrl: "https://placehold.co/100x100/22c55e/FFFFFF?text=Tap",
-    },
+  const benefits = [
+    "Reduce screen time by 40% on average",
+    "Improve focus and productivity",
+    "Better sleep quality",
+    "More meaningful relationships",
+    "Reduced anxiety and stress",
+    "Increased mindfulness"
   ];
+
+  const stats = [
+    { number: "2,500+", label: "Waitlist Members" },
+    { number: "40%", label: "Average Screen Time Reduction" },
+    { number: "95%", label: "User Satisfaction" },
+  ];
+
+  // Use correct blob image for each mode
+  const blobSrc = isHushed ? "/blob-light.png" : "/blob.png";
+  const blobClass = isHushed
+    ? "bg-black shadow-lg shadow-black/30"
+    : "bg-[#e9eeed] shadow-lg shadow-gray-400/30";
+  const blobImgClass = "w-24 h-24";
+  const navbarBg = isHushed ? '#000' : '#fff';
+  const navbarTextClass = isHushed ? 'text-white' : 'text-gray-700';
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Hero Section */}
-      <section className="pt-16 pb-8 md:pt-28 md:pb-16 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 leaf-pattern opacity-30" />
-
-        <div className="container-tight relative z-10">
-          <div className="flex flex-col items-center mb-8">
+    <div
+      className={`min-h-screen w-full flex flex-col transition-colors duration-700 ${isHushed ? "bg-[#7a7a7a]" : "bg-[#f6f6fa]"
+        }`}
+    >
+      {/* Navbar absolutely positioned at the top */}
+      <nav className="w-full flex justify-center pt-6 px-4 md:px-10 fixed top-0 left-0 z-20" style={{ pointerEvents: 'auto' }}>
+        <div className="flex items-center justify-between w-full max-w-4xl px-6 md:px-10 py-3 rounded-2xl shadow-md"
+          style={{ minHeight: 56, background: navbarBg }}>
+          {/* Hamburger */}
+          <button className={`p-2 ${navbarTextClass}`} aria-label="Menu">
+            <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={navbarTextClass}>
+              <line x1="6" y1="9" x2="22" y2="9" />
+              <line x1="6" y1="14" x2="22" y2="14" />
+              <line x1="6" y1="19" x2="22" y2="19" />
+            </svg>
+          </button>
+          {/* Center Text */}
+          <a href="/" className={`cursor-pointer ${navbarTextClass}`}>
+            <span className="font-bold tracking-widest uppercase" style={{ fontFamily: 'Nunito, sans-serif', letterSpacing: '0.18em' }}>HUSH</span>
+          </a>
+          {/* Store Icon */}
+          <a href="/store" className={`p-2 ${navbarTextClass}`} aria-label="Store">
+            <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={navbarTextClass}>
+              <rect x="5" y="10" width="18" height="10" rx="2" />
+              <path d="M7 10V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" />
+            </svg>
+          </a>
+        </div>
+      </nav>
+      {/* Hero Section: fills viewport, content truly centered */}
+      <section className="w-full min-h-screen flex items-center justify-center relative">
+        <div className="flex flex-col items-center justify-center w-full pt-[40px]">
+          <h1
+            className={`text-xl md:text-2xl font-semibold mb-2 text-center transition-colors duration-700 ${isHushed ? "text-white" : "text-black"
+              }`}
+          >
+            {isHushed ? "TAP TO UNHUSH" : "TAP TO HUSH"}
+          </h1>
+          <button
+            aria-label="Hush toggle"
+            onClick={() => {
+              setIsBouncing(true);
+              setIsHushed(!isHushed);
+              setTimeout(() => setIsBouncing(false), 400);
+            }}
+            className={`transition-all duration-500 rounded-[32px] flex items-center justify-center mb-10 ${blobClass}`}
+            style={{ width: 180, height: 180 }}
+          >
             <img
-              src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png"
-              alt="Hush Logo"
-              className="w-24 h-24 mb-4"
+              src={blobSrc}
+              alt="Hush Blob"
+              className={blobImgClass + (isBouncing ? ' animate-bounce-once' : '')}
             />
-          </div>
-
-          <div className="text-center mb-10 md:mb-16 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4 font-medium tracking-tight">
-              Hush: Stay Present, Stay Focused
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              A physical key to unlock digital distractions—only when you're ready
-            </p>
-          </div>
-
-          <div className="max-w-md mx-auto text-center mb-10">
-            <EmailForm />
-            <p className="mt-3 text-sm text-muted-foreground">
-              Join our waitlist to be the first to know when Hush launches
-            </p>
-          </div>
-
-          <div className="mb-10 md:mb-16 animate-scale-in">
-            <VideoPlaceholder />
-          </div>
+          </button>
         </div>
       </section>
-
-      {/* Features Section */}
-      <section className="section bg-gradient-to-b from-white to-secondary/30">
-        <div className="container-tight">
-          <h2 className="text-3xl md:text-4xl font-medium text-center mb-12">
-            Reclaim Your Attention with Hush
+      {/* Features Section: How Hush Works */}
+      <section className={`w-full mt-24 mb-0 transition-colors duration-700 ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`}>
+        <div className="max-w-4xl mx-auto py-16 px-4 md:px-0">
+          <h2 className={`text-3xl font-bold mb-10 text-center transition-colors duration-700 ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+            How Hush Works
           </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {features.map((feature, index) => (
-              <FeatureCard
-                key={index}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-                className="animate-fade-in"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {features.map((feature, idx) => (
+              <div
+                key={idx}
+                className={`rounded-2xl p-6 flex flex-col items-center text-center transition-colors duration-700 ${isHushed ? 'bg-[#23272f] text-white' : 'bg-white text-black'}`}
+                style={{ fontFamily: 'Nunito, sans-serif' }}
+              >
+                <feature.icon className={`w-8 h-8 mb-4 ${isHushed ? 'text-gray-200' : 'text-black'}`} />
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-400">{feature.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Footer Section */}
-      <footer className="py-16 px-4 bg-white border-t">
-        <div className="container-tight">
-          <div className="flex flex-col items-center justify-center mb-10">
-            <img
-              src="/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png"
-              alt="Hush Logo"
-              className="w-16 h-16 mb-6"
-            />
-          </div>
-
-          <div className="max-w-md mx-auto text-center mb-10">
-            <h3 className="text-2xl font-medium mb-4">
-              Be the first to experience Hush
-            </h3>
-            <EmailForm
-              buttonText="Join Waitlist"
-              placeholderText="Your email address"
-            />
-            <p className="mt-3 text-sm text-muted-foreground">
-              We'll only email you about product updates
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex items-center justify-center mb-6">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm">
-                <Smartphone className="w-4 h-4 text-focus-green" />
-                <span className="text-sm">Hush is coming soon to iOS</span>
-              </div>
-            </div>
-
-            <Separator className="mb-6 max-w-xs w-full" />
-            <p className="text-sm text-muted-foreground text-center underline">
-              <a href="mailto:contact@hushscreen.com">Contact Us</a>
-            </p>
-
-
-            <p className="text-sm text-muted-foreground text-center">
-              © {new Date().getFullYear()} Hush. All rights reserved.
-            </p>
+      {/* New Section: Setup Video, Waitlist, Footer */}
+      <section className={`w-full pt-16 pb-8 px-4 md:px-0 flex flex-col items-center mt-0 transition-colors duration-700 ${isHushed ? 'bg-[#181a1b]' : 'bg-white/90'}`}>
+        <div className={`max-w-3xl w-full mx-auto transition-colors duration-700 ${isHushed ? 'text-white' : 'text-black'}`}>
+          <VideoPlaceholder className="mb-8" isHushed={isHushed} />
+          <div className="mb-12">
+            <h2 className={`text-2xl font-bold text-center mb-4 transition-colors duration-700 ${isHushed ? 'text-white' : 'text-black'}`}>Join the Waitlist</h2>
+            <EmailForm buttonText="Confirm" placeholderText="Your email address" />
           </div>
         </div>
-      </footer>
+        <footer className="w-full max-w-3xl mx-auto pt-8 border-t border-gray-400 text-center text-sm font-medium transition-colors duration-700 text-gray-400" style={{ fontFamily: 'Nunito, sans-serif' }}>
+          <div className="mb-2">&copy; {new Date().getFullYear()} Hush. All rights reserved.</div>
+          <div>
+            <a href="mailto:contact@hushscreen.com" className={`underline transition-colors duration-700 ${!isHushed ? 'hover:text-gray-300' : 'hover:text-gray-700'}`}>Contact Us</a>
+          </div>
+        </footer>
+      </section>
     </div>
   );
 };
