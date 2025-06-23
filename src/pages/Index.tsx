@@ -1,4 +1,5 @@
 import { Lock, Circle, Clock, Smartphone, CheckCircle, Users, Zap, Shield, AlarmClock, DollarSign, Leaf, Bed } from "lucide-react";
+import AppIconsBackground from "../components/AppIconsBackground";
 import { Separator } from "@/components/ui/separator";
 import EmailForm from "@/components/EmailForm";
 import FeatureCard from "@/components/FeatureCard";
@@ -124,6 +125,7 @@ const Index = () => {
       </nav>
       {/* Hero Section: fills viewport, content truly centered */}
       <section className="w-full min-h-screen flex items-center justify-center relative">
+        {!isHushed && <AppIconsBackground />}
         <div className="flex flex-col items-center justify-center w-full pt-[40px]">
           <h1
             className={`text-xl md:text-2xl font-semibold mb-2 text-center transition-colors duration-700 ${isHushed ? "text-white" : "text-black"
