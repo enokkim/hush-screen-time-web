@@ -215,19 +215,27 @@ const Index = () => {
         </div>
       </nav>
       {/* Hero Section: fills viewport, content truly centered */}
-      <section className="w-full min-h-screen flex items-center justify-center relative">
+      <section className="w-full min-h-screen flex flex-col justify-center items-center relative pt-[96px]">
         {!isHushed && <AppIconsBackground />}
-        <div className="flex flex-col items-center justify-center w-full pt-[40px] relative">
-          <div className="relative mb-10 flex flex-col items-center justify-center" style={{ height: '1050px', width: '100%' }}>
-            {/* Phone frame */}
+        <div className="w-full flex flex-col items-center justify-center flex-1">
+          {/* Desktop: phone frame, button, and bubble centered together */}
+          <div className="hidden md:flex flex-col items-center justify-center relative h-[900px] w-full">
             <img
               src="/phone.png"
               alt="Phone frame"
-              className="absolute top-1/2 md:top-24 left-1/2 -translate-x-1/2 md:-translate-y-0 -translate-y-1/2 w-[44rem] md:w-[52rem] h-auto pointer-events-none"
+              className="block mx-auto w-[44rem] md:w-[52rem] h-auto pointer-events-none"
               style={{ zIndex: 1 }}
             />
-            {/* Button and speech bubble absolutely centered in phone frame */}
-            <div className="absolute top-1/2 md:top-24 left-1/2 -translate-x-1/2 md:-translate-y-0 -translate-y-1/2 w-full h-[900px]" style={{ zIndex: 2 }}>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-full" style={{ zIndex: 2 }}>
+              {/* Speech bubble absolutely above the button */}
+              {!isHushed && showSpeech && (
+                <div className={`absolute left-1/2 -translate-x-1/2 flex flex-col items-center speech-bubble-pos transition-opacity duration-700 ${bubbleVisible ? 'opacity-100' : 'opacity-0'}`} style={{ top: '-120px' }}>
+                  <img src="/speech-bubble.png" alt="Speech bubble" className="w-56 h-auto" />
+                  <span className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-center text-black text-xl font-semibold -translate-y-[20px] transition-opacity duration-700 px-6" style={{ fontFamily: 'Nunito, sans-serif', pointerEvents: 'none', padding: '1.5rem 1.2rem 0.5rem 1.2rem', opacity: bubbleVisible ? 1 : 0 }}>
+                    {speechBubbleTexts[speechIndex]}
+                  </span>
+                </div>
+              )}
               {/* Hush button always centered */}
               <button
                 aria-label="Hush toggle"
@@ -248,7 +256,7 @@ const Index = () => {
                   setIsHushed(!isHushed);
                   setTimeout(() => setIsBouncing(false), 400);
                 }}
-                className={`absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 rounded-[32px] flex items-center justify-center ${blobClass}`}
+                className={`transition-all duration-500 rounded-[32px] flex items-center justify-center ${blobClass}`}
                 style={{ width: 180, height: 180 }}
               >
                 <img
@@ -257,21 +265,53 @@ const Index = () => {
                   className={blobImgClass + (isBouncing ? ' animate-bounce-once' : '')}
                 />
               </button>
-              {/* Speech bubble absolutely above the button */}
-              {!isHushed && showSpeech && (
-                <div className={`absolute left-1/2 -translate-x-1/2 flex flex-col items-center speech-bubble-pos transition-opacity duration-700 ${bubbleVisible ? 'opacity-100' : 'opacity-0'}`} style={{ top: 'calc(46% - 180px - 120px)' }}>
-                  <img src="/speech-bubble.png" alt="Speech bubble" className="w-48 md:w-64 h-auto" />
-                  <span className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-center text-black text-base md:text-xl font-semibold -translate-y-[20px] transition-opacity duration-700" style={{ fontFamily: 'Nunito, sans-serif', pointerEvents: 'none', padding: '1.5rem 1.2rem 0.5rem 1.2rem', opacity: bubbleVisible ? 1 : 0 }}>
-                    {speechBubbleTexts[speechIndex]}
-                  </span>
-                </div>
-              )}
-              <style>{`
-                @media (max-width: 768px) {
-                  .speech-bubble-pos { top: calc(51% - 180px - 120px) !important; }
-                }
-              `}</style>
             </div>
+          </div>
+          {/* Mobile: button and bubble up higher */}
+          <div className="flex flex-col items-center justify-start mt-8 md:hidden w-full flex-1" style={{ zIndex: 2 }}>
+            {/* Hush button always centered */}
+            <button
+              aria-label="Hush toggle"
+              onClick={() => {
+                setIsBouncing(true);
+                if (!isHushed) {
+                  toast({
+                    title: "Hush mode activated",
+                    description: "Distractions are now blocked. Stay focused.",
+                    variant: "hushed",
+                  });
+                } else {
+                  toast({
+                    title: "Hush mode deactivated",
+                    description: "You're back to normal. Welcome back.",
+                  });
+                }
+                setIsHushed(!isHushed);
+                setTimeout(() => setIsBouncing(false), 400);
+              }}
+              className={`absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 rounded-[32px] flex items-center justify-center ${blobClass}`}
+              style={{ width: 180, height: 180 }}
+            >
+              <img
+                src={blobSrc}
+                alt="Hush Blob"
+                className={blobImgClass + (isBouncing ? ' animate-bounce-once' : '')}
+              />
+            </button>
+            {/* Speech bubble absolutely above the button */}
+            {!isHushed && showSpeech && (
+              <div className={`absolute left-1/2 -translate-x-1/2 flex flex-col items-center speech-bubble-pos transition-opacity duration-700 ${bubbleVisible ? 'opacity-100' : 'opacity-0'}`} style={{ top: 'calc(46% - 180px - 120px)' }}>
+                <img src="/speech-bubble.png" alt="Speech bubble" className="w-48 md:w-64 h-auto" />
+                <span className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-center text-black text-base md:text-xl font-semibold -translate-y-[20px] transition-opacity duration-700 px-4 md:px-6" style={{ fontFamily: 'Nunito, sans-serif', pointerEvents: 'none', padding: '1.5rem 1.2rem 0.5rem 1.2rem', opacity: bubbleVisible ? 1 : 0 }}>
+                  {speechBubbleTexts[speechIndex]}
+                </span>
+              </div>
+            )}
+            <style>{`
+              @media (max-width: 768px) {
+                .speech-bubble-pos { top: calc(51% - 180px - 120px) !important; }
+              }
+            `}</style>
           </div>
         </div>
       </section>

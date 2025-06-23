@@ -168,3 +168,8 @@
 .animate-bounce-once {
   animation: bounce-once 0.3s ease-in-out 1;
 }
+
+html,
+body {
+  overflow-x: hidden;
+}
