@@ -1,33 +1,29 @@
 import { Lock, Circle, Clock, Smartphone, CheckCircle, Users, Zap, Shield, AlarmClock, DollarSign, Leaf, Bed } from "lucide-react";
 import AppIconsBackground from "../components/AppIconsBackground";
-import { Separator } from "@/components/ui/separator";
 import EmailForm from "@/components/EmailForm";
-import FeatureCard from "@/components/FeatureCard";
 import VideoPlaceholder from "@/components/VideoPlaceholder";
 import { useContext, useState, useRef, useEffect } from "react";
 import { HushContext } from "../context/HushContext";
-
-const PixelText = ({ children }: { children: string }) => (
-  <span
-    style={{
-      fontFamily: 'monospace',
-      letterSpacing: '0.2em',
-      fontWeight: 700,
-      fontSize: '1.3rem',
-      textTransform: 'uppercase',
-      textShadow: '0 1px 0 #888',
-    }}
-    className="tracking-widest"
-  >
-    {children}
-  </span>
-);
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "../components/ui/carousel";
+import { toast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const { isHushed, setIsHushed } = useContext(HushContext);
   const [isBouncing, setIsBouncing] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showSpeech, setShowSpeech] = useState(false);
+  const [bubbleVisible, setBubbleVisible] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const speechBubbleTexts = [
+    "Let's hush to block distractions!",
+    "Click me for some peace and focus",
+    "Don't be scared..."
+  ];
+  const [speechIndex, setSpeechIndex] = useState(0);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -39,6 +35,53 @@ const Index = () => {
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, [menuOpen]);
+
+  useEffect(() => {
+    let fadeTimeout: NodeJS.Timeout;
+    let hideTimeout: NodeJS.Timeout;
+    if (showSpeech) {
+      setSpeechIndex((prev) => (prev + 1) % speechBubbleTexts.length);
+      fadeTimeout = setTimeout(() => setBubbleVisible(true), 50); // fade in
+      const totalVisible = 3500; // ms visible after fade in
+      hideTimeout = setTimeout(() => {
+        setBubbleVisible(false); // fade out
+        setTimeout(() => setShowSpeech(false), 600); // hide after fade out
+      }, totalVisible);
+    } else {
+      setBubbleVisible(false);
+    }
+    return () => {
+      clearTimeout(fadeTimeout);
+      clearTimeout(hideTimeout);
+    };
+  }, [showSpeech]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down and past 100px - hide navbar
+        setIsNavbarVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show navbar
+        setIsNavbarVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    // Show the speech bubble after 3s if not hushed and not already showing
+    if (!isHushed && !showSpeech) {
+      const timer = setTimeout(() => setShowSpeech(true), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isHushed, showSpeech]);
 
   const features = [
     {
@@ -85,13 +128,61 @@ const Index = () => {
   const navbarBg = isHushed ? '#000' : '#fff';
   const navbarTextClass = isHushed ? 'text-white' : 'text-gray-700';
 
+  // Carousel slides: combine Why It Matters and How Hush Works
+  const carouselSlides = [
+    // Why It Matters
+    {
+      section: "Why It Matters",
+      title: "2.5h/day",
+      description: "Saved on average",
+      icon: AlarmClock,
+    },
+    {
+      section: "Why It Matters",
+      title: "$10k/year",
+      description: "Productivity boost per employee",
+      icon: DollarSign,
+    },
+    {
+      section: "Why It Matters",
+      title: "50kg CO₂",
+      description: "Less per user per year",
+      icon: Leaf,
+    },
+    {
+      section: "Why It Matters",
+      title: "30% better",
+      description: "Sleep quality on average",
+      icon: Bed,
+    },
+    // How Hush Works
+    {
+      section: "How Hush Works",
+      title: "Tap to Lock",
+      description: "Lock distracting apps with a single tap of your Hush Key",
+      icon: Lock,
+    },
+    {
+      section: "How Hush Works",
+      title: "Be Present",
+      description: "Stay engaged in the real world without digital interruptions",
+      icon: Circle,
+    },
+    {
+      section: "How Hush Works",
+      title: "Tap to Return",
+      description: "Access your apps only when you consciously choose to",
+      icon: Clock,
+    },
+  ];
+
   return (
     <div
       className={`min-h-screen w-full flex flex-col transition-colors duration-700 ${isHushed ? "bg-[#7a7a7a]" : "bg-[#f6f6fa]"
         }`}
     >
       {/* Navbar absolutely positioned at the top */}
-      <nav className="w-full flex justify-center pt-6 px-4 md:px-10 fixed top-0 left-0 z-20" style={{ pointerEvents: 'auto' }}>
+      <nav className={`w-full flex justify-center pt-6 px-4 md:px-10 fixed top-0 left-0 z-30 transition-transform duration-300 ${isNavbarVisible ? 'translate-y-0' : '-translate-y-full'}`} style={{ pointerEvents: 'auto' }}>
         <div className="flex items-center justify-between w-full max-w-4xl px-6 md:px-10 py-3 rounded-full shadow-md"
           style={{ minHeight: 56, background: navbarBg }}>
           {/* Hamburger */}
@@ -126,90 +217,96 @@ const Index = () => {
       {/* Hero Section: fills viewport, content truly centered */}
       <section className="w-full min-h-screen flex items-center justify-center relative">
         {!isHushed && <AppIconsBackground />}
-        <div className="flex flex-col items-center justify-center w-full pt-[40px]">
-          <h1
-            className={`text-xl md:text-2xl font-semibold mb-2 text-center transition-colors duration-700 ${isHushed ? "text-white" : "text-black"
-              }`}
-          >
-            {isHushed ? "TAP TO UNHUSH" : "TAP TO HUSH"}
-          </h1>
-          <button
-            aria-label="Hush toggle"
-            onClick={() => {
-              setIsBouncing(true);
-              setIsHushed(!isHushed);
-              setTimeout(() => setIsBouncing(false), 400);
-            }}
-            className={`transition-all duration-500 rounded-[32px] flex items-center justify-center mb-10 ${blobClass}`}
-            style={{ width: 180, height: 180 }}
-          >
+        <div className="flex flex-col items-center justify-center w-full pt-[40px] relative">
+          <div className="relative mb-10 flex flex-col items-center justify-center" style={{ height: '1050px', width: '100%' }}>
+            {/* Phone frame */}
             <img
-              src={blobSrc}
-              alt="Hush Blob"
-              className={blobImgClass + (isBouncing ? ' animate-bounce-once' : '')}
+              src="/phone.png"
+              alt="Phone frame"
+              className="absolute top-1/2 md:top-24 left-1/2 -translate-x-1/2 md:-translate-y-0 -translate-y-1/2 w-[44rem] md:w-[52rem] h-auto pointer-events-none"
+              style={{ zIndex: 1 }}
             />
-          </button>
+            {/* Button and speech bubble absolutely centered in phone frame */}
+            <div className="absolute top-1/2 md:top-24 left-1/2 -translate-x-1/2 md:-translate-y-0 -translate-y-1/2 w-full h-[900px]" style={{ zIndex: 2 }}>
+              {/* Hush button always centered */}
+              <button
+                aria-label="Hush toggle"
+                onClick={() => {
+                  setIsBouncing(true);
+                  if (!isHushed) {
+                    toast({
+                      title: "Hush mode activated",
+                      description: "Distractions are now blocked. Stay focused.",
+                      variant: "hushed",
+                    });
+                  } else {
+                    toast({
+                      title: "Hush mode deactivated",
+                      description: "You're back to normal. Welcome back.",
+                    });
+                  }
+                  setIsHushed(!isHushed);
+                  setTimeout(() => setIsBouncing(false), 400);
+                }}
+                className={`absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 rounded-[32px] flex items-center justify-center ${blobClass}`}
+                style={{ width: 180, height: 180 }}
+              >
+                <img
+                  src={blobSrc}
+                  alt="Hush Blob"
+                  className={blobImgClass + (isBouncing ? ' animate-bounce-once' : '')}
+                />
+              </button>
+              {/* Speech bubble absolutely above the button */}
+              {!isHushed && showSpeech && (
+                <div className={`absolute left-1/2 -translate-x-1/2 flex flex-col items-center speech-bubble-pos transition-opacity duration-700 ${bubbleVisible ? 'opacity-100' : 'opacity-0'}`} style={{ top: 'calc(46% - 180px - 120px)' }}>
+                  <img src="/speech-bubble.png" alt="Speech bubble" className="w-48 md:w-64 h-auto" />
+                  <span className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-center text-black text-base md:text-xl font-semibold -translate-y-[20px] transition-opacity duration-700" style={{ fontFamily: 'Nunito, sans-serif', pointerEvents: 'none', padding: '1.5rem 1.2rem 0.5rem 1.2rem', opacity: bubbleVisible ? 1 : 0 }}>
+                    {speechBubbleTexts[speechIndex]}
+                  </span>
+                </div>
+              )}
+              <style>{`
+                @media (max-width: 768px) {
+                  .speech-bubble-pos { top: calc(51% - 180px - 120px) !important; }
+                }
+              `}</style>
+            </div>
+          </div>
         </div>
       </section>
-      {/* Statistics/Impact Section */}
-      <section className={`w-full ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`}>
-        <div className="max-w-4xl mx-auto py-16 px-4 md:px-0">
-          <h2 className={`text-3xl font-bold mb-10 text-center ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
-            Why It Matters
+      {/* Carousel Section: Why It Matters & How Hush Works */}
+      <section className={`w-full flex flex-col items-center py-24 ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`}>
+        <div className="max-w-2xl w-full mx-auto mb-8">
+          <h2 className={`text-3xl font-bold text-center mb-2 ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+            Why It Matters & How Hush Works
           </h2>
-          <p className={`text-center mb-12 text-lg ${isHushed ? 'text-gray-300' : 'text-gray-600'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+          <p className={`text-center text-lg ${isHushed ? 'text-gray-300' : 'text-gray-600'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
             Reducing distractions isn't just about focus<br className="hidden sm:inline" />—it's about saving time, money, and the planet.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
-            {/* Hours Saved */}
-            <div className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
-              <AlarmClock className={`mb-2 w-10 h-10 ${isHushed ? 'text-white' : 'text-black'}`} />
-              <div className="text-2xl font-bold mb-1">2.5h/day</div>
-              <div className="text-gray-400 text-sm">Saved on average</div>
-            </div>
-            {/* Money Saved */}
-            <div className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
-              <DollarSign className={`mb-2 w-10 h-10 ${isHushed ? 'text-white' : 'text-black'}`} />
-              <div className="text-2xl font-bold mb-1">$10k/year</div>
-              <div className="text-gray-400 text-sm">Productivity boost per employee</div>
-            </div>
-            {/* CO2 Saved */}
-            <div className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
-              <Leaf className={`mb-2 w-10 h-10 ${isHushed ? 'text-white' : 'text-black'}`} />
-              <div className="text-2xl font-bold mb-1">50kg CO₂</div>
-              <div className="text-gray-400 text-sm">Less per user per year</div>
-            </div>
-            {/* Better Sleep */}
-            <div className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
-              <Bed className={`mb-2 w-10 h-10 ${isHushed ? 'text-white' : 'text-black'}`} />
-              <div className="text-2xl font-bold mb-1">30% better</div>
-              <div className="text-gray-400 text-sm">Sleep quality on average</div>
-            </div>
-          </div>
-          <div className="text-xs text-gray-400 text-center mt-8" style={{ fontFamily: 'Nunito, sans-serif' }}>
-            Sources: RescueTime, Harvard Business Review, Carbon Trust, Sleep Foundation
-          </div>
         </div>
-      </section>
-      {/* Features Section: How Hush Works */}
-      <section className={`w-full mb-0 ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`}>
-        <div className="max-w-4xl mx-auto py-16 px-4 md:px-0">
-          <h2 className={`text-3xl font-bold mb-10 text-center ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
-            How Hush Works
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-            {features.map((feature, idx) => (
-              <div
-                key={idx}
-                className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`}
-                style={{ fontFamily: 'Nunito, sans-serif' }}
-              >
-                <feature.icon className={`w-8 h-8 mb-4 ${isHushed ? 'text-gray-200' : 'text-black'}`} />
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-gray-400">{feature.description}</p>
-              </div>
-            ))}
-          </div>
+        <div className="relative w-full max-w-2xl">
+          <Carousel className="w-full">
+            <CarouselContent>
+              {carouselSlides.map((slide, idx) => (
+                <CarouselItem key={idx} className="flex justify-center">
+                  <Card className={`w-80 h-60 flex flex-col items-center justify-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'} shadow-xl`}>
+                    <CardHeader className="flex flex-col items-center">
+                      <slide.icon className="w-12 h-12 mb-2" />
+                      <CardTitle className="text-2xl mb-1">{slide.title}</CardTitle>
+                      <CardDescription className="text-lg text-gray-400 mb-2 text-center">{slide.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center text-xs font-semibold uppercase tracking-widest opacity-60">
+                      {slide.section}
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            {/* Absolutely positioned arrows */}
+            <CarouselPrevious className="absolute left-[-2.5rem] top-1/2 -translate-y-1/2 w-8 h-8 min-w-0 min-h-0 bg-transparent border border-gray-200 text-gray-400 hover:bg-gray-100 hover:text-black shadow-none z-10" />
+            <CarouselNext className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 w-8 h-8 min-w-0 min-h-0 bg-transparent border border-gray-200 text-gray-400 hover:bg-gray-100 hover:text-black shadow-none z-10" />
+          </Carousel>
         </div>
       </section>
       {/* New Section: Setup Video, Waitlist, Footer */}
