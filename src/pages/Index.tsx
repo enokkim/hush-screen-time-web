@@ -1,4 +1,4 @@
-import { Lock, Circle, Clock, Smartphone, CheckCircle, Users, Zap, Shield } from "lucide-react";
+import { Lock, Circle, Clock, Smartphone, CheckCircle, Users, Zap, Shield, AlarmClock, DollarSign, Leaf, Bed } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import EmailForm from "@/components/EmailForm";
 import FeatureCard from "@/components/FeatureCard";
@@ -25,6 +25,7 @@ const PixelText = ({ children }: { children: string }) => (
 const Index = () => {
   const { isHushed, setIsHushed } = useContext(HushContext);
   const [isBouncing, setIsBouncing] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const features = [
     {
@@ -78,16 +79,24 @@ const Index = () => {
     >
       {/* Navbar absolutely positioned at the top */}
       <nav className="w-full flex justify-center pt-6 px-4 md:px-10 fixed top-0 left-0 z-20" style={{ pointerEvents: 'auto' }}>
-        <div className="flex items-center justify-between w-full max-w-4xl px-6 md:px-10 py-3 rounded-2xl shadow-md"
+        <div className="flex items-center justify-between w-full max-w-4xl px-6 md:px-10 py-3 rounded-full shadow-md"
           style={{ minHeight: 56, background: navbarBg }}>
           {/* Hamburger */}
-          <button className={`p-2 ${navbarTextClass}`} aria-label="Menu">
-            <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={navbarTextClass}>
-              <line x1="6" y1="9" x2="22" y2="9" />
-              <line x1="6" y1="14" x2="22" y2="14" />
-              <line x1="6" y1="19" x2="22" y2="19" />
-            </svg>
-          </button>
+          <div className="relative">
+            <button className={`p-2 ${navbarTextClass}`} aria-label="Menu" onClick={() => setMenuOpen((v) => !v)}>
+              <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={navbarTextClass}>
+                <line x1="6" y1="9" x2="22" y2="9" />
+                <line x1="6" y1="14" x2="22" y2="14" />
+                <line x1="6" y1="19" x2="22" y2="19" />
+              </svg>
+            </button>
+            {menuOpen && (
+              <div className="absolute left-0 mt-2 w-40 rounded-xl shadow-lg bg-white border border-gray-200 z-50 flex flex-col text-left">
+                <a href="/store" className="px-5 py-3 hover:bg-gray-100 text-black font-medium">Shop</a>
+                <a href="mailto:contact@hushscreen.com" className="px-5 py-3 hover:bg-gray-100 text-black font-medium rounded-b-xl" onClick={() => setMenuOpen(false)}>Contact Us</a>
+              </div>
+            )}
+          </div>
           {/* Center Text */}
           <a href="/" className={`cursor-pointer ${navbarTextClass}`}>
             <span className="font-bold tracking-widest uppercase" style={{ fontFamily: 'Nunito, sans-serif', letterSpacing: '0.18em' }}>HUSH</span>
@@ -128,17 +137,57 @@ const Index = () => {
           </button>
         </div>
       </section>
-      {/* Features Section: How Hush Works */}
-      <section className={`w-full mt-24 mb-0 transition-colors duration-700 ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`}>
+      {/* Statistics/Impact Section */}
+      <section className={`w-full ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`}>
         <div className="max-w-4xl mx-auto py-16 px-4 md:px-0">
-          <h2 className={`text-3xl font-bold mb-10 text-center transition-colors duration-700 ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+          <h2 className={`text-3xl font-bold mb-10 text-center ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+            Why It Matters
+          </h2>
+          <p className={`text-center mb-12 text-lg ${isHushed ? 'text-gray-300' : 'text-gray-600'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+            Reducing distractions isn't just about focus<br className="hidden sm:inline" />—it's about saving time, money, and the planet.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
+            {/* Hours Saved */}
+            <div className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+              <AlarmClock className={`mb-2 w-10 h-10 ${isHushed ? 'text-white' : 'text-black'}`} />
+              <div className="text-2xl font-bold mb-1">2.5h/day</div>
+              <div className="text-gray-400 text-sm">Saved on average</div>
+            </div>
+            {/* Money Saved */}
+            <div className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+              <DollarSign className={`mb-2 w-10 h-10 ${isHushed ? 'text-white' : 'text-black'}`} />
+              <div className="text-2xl font-bold mb-1">$10k/year</div>
+              <div className="text-gray-400 text-sm">Productivity boost per employee</div>
+            </div>
+            {/* CO2 Saved */}
+            <div className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+              <Leaf className={`mb-2 w-10 h-10 ${isHushed ? 'text-white' : 'text-black'}`} />
+              <div className="text-2xl font-bold mb-1">50kg CO₂</div>
+              <div className="text-gray-400 text-sm">Less per user per year</div>
+            </div>
+            {/* Better Sleep */}
+            <div className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+              <Bed className={`mb-2 w-10 h-10 ${isHushed ? 'text-white' : 'text-black'}`} />
+              <div className="text-2xl font-bold mb-1">30% better</div>
+              <div className="text-gray-400 text-sm">Sleep quality on average</div>
+            </div>
+          </div>
+          <div className="text-xs text-gray-400 text-center mt-8" style={{ fontFamily: 'Nunito, sans-serif' }}>
+            Sources: RescueTime, Harvard Business Review, Carbon Trust, Sleep Foundation
+          </div>
+        </div>
+      </section>
+      {/* Features Section: How Hush Works */}
+      <section className={`w-full mb-0 ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`}>
+        <div className="max-w-4xl mx-auto py-16 px-4 md:px-0">
+          <h2 className={`text-3xl font-bold mb-10 text-center ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
             How Hush Works
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
             {features.map((feature, idx) => (
               <div
                 key={idx}
-                className={`rounded-2xl p-6 flex flex-col items-center text-center transition-colors duration-700 ${isHushed ? 'bg-[#23272f] text-white' : 'bg-white text-black'}`}
+                className={`w-64 h-48 rounded-2xl p-6 flex flex-col items-center text-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`}
                 style={{ fontFamily: 'Nunito, sans-serif' }}
               >
                 <feature.icon className={`w-8 h-8 mb-4 ${isHushed ? 'text-gray-200' : 'text-black'}`} />
