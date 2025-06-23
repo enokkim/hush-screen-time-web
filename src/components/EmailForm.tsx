@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,10 +21,10 @@ const EmailForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Open modal immediately without validating email
     setIsSubmitting(true);
-    
+
     // Show modal instead of success message
     setTimeout(() => {
       setIsSubmitting(false);
@@ -43,7 +42,7 @@ const EmailForm = ({
       <form
         onSubmit={handleSubmit}
         className={cn(
-          "flex flex-col sm:flex-row gap-2 max-w-md w-full mx-auto",
+          "flex flex-col sm:flex-row gap-3 max-w-md w-full mx-auto",
           className
         )}
       >
@@ -52,12 +51,13 @@ const EmailForm = ({
           placeholder={placeholderText}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="h-12 bg-white/80 backdrop-blur-sm border-focus-green/20 focus:border-focus-green"
+          className="h-16"
           aria-label="Email address"
         />
         <Button
           type="submit"
-          className="h-12 px-6 bg-focus-green hover:bg-focus-green-dark transition-all duration-300 shadow-sm hover:shadow"
+          variant="pill"
+          className="h-16"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
@@ -81,15 +81,15 @@ const EmailForm = ({
               Processing
             </span>
           ) : (
-            buttonText
+            "Confirm"
           )}
         </Button>
       </form>
-      
-      <WaitlistModal 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        email={email} 
+
+      <WaitlistModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        email={email}
       />
     </>
   );

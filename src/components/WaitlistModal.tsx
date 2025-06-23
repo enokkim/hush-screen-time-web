@@ -42,7 +42,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
     };
 
     console.log("Submitting waitlist data:", formData);
-    
+
     try {
       // Send to FormSubmit for email notifications
       const formSubmitUrl = "https://formsubmit.co/ajax/contact@hushscreentime.com";
@@ -63,7 +63,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
 
       // Send to Google Sheets for data collection
       const sheetsUrl = 'https://script.google.com/macros/s/AKfycbycC6Ddy26fgWBKc7k1N5DAkOXb1KDHa3MbUVY9c5UeEz8mhut3ZhvX-rcf8kPYavuJhA/exec';
-      
+
       try {
         // First make a preflight request
         const sheetsResponse = await fetch(sheetsUrl, {
@@ -80,7 +80,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
       } catch (sheetsError) {
         // Log sheets error but don't fail the whole submission
         console.error('Google Sheets submission error:', sheetsError);
-        
+
         // Fallback to no-cors if regular request fails
         try {
           await fetch(sheetsUrl, {
@@ -132,7 +132,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
             Fill out this form to join our waitlist for early access.
           </DialogDescription>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -141,7 +141,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
-                className="h-12"
+                className="h-16 rounded-full px-6 text-base"
               />
             </div>
             <div className="space-y-2">
@@ -150,11 +150,11 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
-                className="h-12"
+                className="h-16 rounded-full px-6 text-base"
               />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <Input
               type="email"
@@ -162,14 +162,14 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="h-12"
+              className="h-16 rounded-full px-6 text-base"
             />
           </div>
-          
+
           <div className="space-y-2">
             <p className="text-gray-600 text-md mb-2">HOW DID YOU HEAR ABOUT US?</p>
             <Select value={source} onValueChange={setSource} required>
-              <SelectTrigger className="h-12">
+              <SelectTrigger className="h-16 rounded-full px-6 text-base">
                 <SelectValue placeholder="Select an option" />
               </SelectTrigger>
               <SelectContent>
@@ -181,12 +181,13 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
               </SelectContent>
             </Select>
           </div>
-          
+
           <div className="flex items-center space-x-2">
-            <Checkbox 
-              id="europe" 
-              checked={isEuropeBased} 
-              onCheckedChange={(checked) => setIsEuropeBased(checked === true)} 
+            <Checkbox
+              id="europe"
+              checked={isEuropeBased}
+              onCheckedChange={(checked) => setIsEuropeBased(checked === true)}
+              className="rounded-full border-gray-300 focus:ring-black"
             />
             <label
               htmlFor="europe"
@@ -195,13 +196,14 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
               Are you based in Europe?
             </label>
           </div>
-          
-          <Button 
-            type="submit" 
-            className="w-full h-12 bg-focus-green hover:bg-focus-green-dark text-white"
+
+          <Button
+            type="submit"
+            variant="pill"
+            className="w-full h-16 rounded-full text-lg font-bold bg-black text-white"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Processing..." : "SIGN UP"}
+            {isSubmitting ? "Signing Up..." : "Sign Up"}
           </Button>
         </form>
       </DialogContent>
