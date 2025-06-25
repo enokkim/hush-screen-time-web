@@ -229,7 +229,7 @@ const Index = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-full" style={{ zIndex: 2 }}>
               {/* Speech bubble absolutely above the button */}
               {!isHushed && showSpeech && (
-                <div className={`absolute left-1/2 -translate-x-1/2 flex flex-col items-center speech-bubble-pos transition-opacity duration-700 ${bubbleVisible ? 'opacity-100' : 'opacity-0'}`} style={{ top: '-120px' }}>
+                <div className={`absolute left-1/2 -translate-x-1/2 flex flex-col items-center speech-bubble-pos transition-opacity duration-700 ${bubbleVisible ? 'opacity-100' : 'opacity-0'}`} style={{ top: '-180px' }}>
                   <img src="/speech-bubble.png" alt="Speech bubble" className="w-56 h-auto" />
                   <span className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-center text-black text-xl font-semibold -translate-y-[20px] transition-opacity duration-700 px-6" style={{ fontFamily: 'Nunito, sans-serif', pointerEvents: 'none', padding: '1.5rem 1.2rem 0.5rem 1.2rem', opacity: bubbleVisible ? 1 : 0 }}>
                     {speechBubbleTexts[speechIndex]}
@@ -309,7 +309,7 @@ const Index = () => {
             )}
             <style>{`
               @media (max-width: 768px) {
-                .speech-bubble-pos { top: calc(51% - 180px - 120px) !important; }
+                .speech-bubble-pos { top: calc(51% - 280px) !important; }
               }
             `}</style>
           </div>
@@ -359,7 +359,7 @@ const Index = () => {
           </div>
         </div>
         <footer className="w-full max-w-3xl mx-auto pt-8 border-t border-gray-400 text-center text-sm font-medium transition-colors duration-700 text-gray-400" style={{ fontFamily: 'Nunito, sans-serif' }}>
-          <div className="mb-2">&copy; {new Date().getFullYear()} Hush. All rights reserved.</div>
+          <div className="mb-2">&copy; {new Date().getFullYear()} Hush. All rights reserved. Made in Europe 🇪🇺.</div>
           <div>
             <a href="mailto:contact@hushscreen.com" className={`underline transition-colors duration-700 ${!isHushed ? 'hover:text-gray-300' : 'hover:text-gray-700'}`}>Contact Us</a>
           </div>
