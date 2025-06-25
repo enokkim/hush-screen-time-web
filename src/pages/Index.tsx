@@ -21,7 +21,7 @@ const Index = () => {
   const speechBubbleTexts = [
     "Let's hush to block distractions!",
     "Click me for some peace and focus",
-    "Don't be scared..."
+    "Ready to block the noise?"
   ];
   const [speechIndex, setSpeechIndex] = useState(0);
 
