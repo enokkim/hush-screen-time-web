@@ -1,0 +1,31 @@
+{
+    "name": "Hush - Physical Key to Unlock Digital Distractions",
+    "short_name": "Hush",
+    "description": "A physical key to unlock digital distractions—only when you're ready. Reduce screen time by 40% and improve focus.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f6f6fa",
+    "theme_color": "#e9eeed",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/lovable-uploads/8e501e15-8960-4aa4-8495-7de703b7b2b1.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "productivity",
+        "lifestyle",
+        "health"
+    ],
+    "lang": "en",
+    "dir": "ltr"
+}

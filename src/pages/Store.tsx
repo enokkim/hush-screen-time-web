@@ -2,6 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useState, useRef, useEffect } from 'react';
 import { HushContext } from '../context/HushContext';
 import EmailForm from "@/components/EmailForm";
+import SEO from "@/components/SEO";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const PixelText = ({ children }: { children: string }) => (
     <span
@@ -26,6 +29,8 @@ const Store = () => {
     const menuRef = useRef<HTMLDivElement>(null);
     const navbarBg = isHushed ? '#000' : '#fff';
     const navbarTextClass = isHushed ? 'text-white' : 'text-gray-700';
+    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
     useEffect(() => {
         if (!menuOpen) return;
@@ -38,39 +43,38 @@ const Store = () => {
         return () => document.removeEventListener('mousedown', handleClick);
     }, [menuOpen]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                setIsNavbarVisible(false);
+            } else if (currentScrollY < lastScrollY) {
+                setIsNavbarVisible(true);
+            }
+            setLastScrollY(currentScrollY);
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]);
+
     return (
         <div className={`min-h-screen flex flex-col items-center justify-center ${isHushed ? 'bg-[#7a7a7a] text-white' : 'bg-[#f6f6fa] text-black'}`}>
-            {/* Navbar */}
-            <nav className="w-full flex justify-center mb-12 pt-6 px-4 md:px-10 fixed top-0 left-0 z-20" style={{ pointerEvents: 'auto' }}>
-                <div className="flex items-center justify-between w-full max-w-4xl px-6 md:px-10 py-3 rounded-full shadow-md" style={{ minHeight: 56, background: navbarBg }} ref={menuRef}>
-                    <div className="relative">
-                        <button className={`p-2 ${navbarTextClass}`} aria-label="Menu" onClick={() => setMenuOpen((v) => !v)}>
-                            <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={navbarTextClass}>
-                                <line x1="6" y1="9" x2="22" y2="9" />
-                                <line x1="6" y1="14" x2="22" y2="14" />
-                                <line x1="6" y1="19" x2="22" y2="19" />
-                            </svg>
-                        </button>
-                        {menuOpen && (
-                            <div className={`absolute left-0 mt-2 w-40 rounded-xl shadow-lg z-50 flex flex-col text-left ${isHushed ? 'bg-black' : 'bg-white'} ${isHushed ? '' : 'border border-gray-200'}`}>
-                                <a href="/store" className={`px-5 py-3 font-medium ${isHushed ? 'text-white hover:bg-white/10' : 'text-black hover:bg-gray-100'}`}>Shop</a>
-                                <a href="mailto:contact@hushscreen.com" className={`px-5 py-3 font-medium rounded-b-xl ${isHushed ? 'text-white hover:bg-white/10' : 'text-black hover:bg-gray-100'}`} onClick={() => setMenuOpen(false)}>Contact Us</a>
-                            </div>
-                        )}
-                    </div>
-                    {/* Center Text */}
-                    <span onClick={() => navigate('/')} className={navbarTextClass + ' cursor-pointer'}>
-                        <span className="font-bold tracking-widest uppercase" style={{ fontFamily: 'Nunito, sans-serif', letterSpacing: '0.18em' }}>HUSH</span>
-                    </span>
-                    {/* Store Icon (inactive here) */}
-                    <span className={`p-2 ${navbarTextClass}`} aria-label="Store">
-                        <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={navbarTextClass}>
-                            <rect x="5" y="10" width="18" height="10" rx="2" />
-                            <path d="M7 10V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" />
-                        </svg>
-                    </span>
-                </div>
-            </nav>
+            <SEO
+                title="Join Hush Waitlist - Early Access to Digital Wellness App"
+                description="Join the Hush waitlist for early access to our physical key that unlocks digital distractions. Be the first to experience 40% screen time reduction."
+                keywords="hush waitlist, early access, digital wellness app, screen time reduction, focus app, productivity tool"
+                url="https://hushscreentime.com/store"
+                type="website"
+            />
+            <Navbar
+                isHushed={isHushed}
+                menuOpen={menuOpen}
+                setMenuOpen={setMenuOpen}
+                menuRef={menuRef}
+                navbarBg={navbarBg}
+                navbarTextClass={navbarTextClass}
+                isNavbarVisible={isNavbarVisible}
+            />
             {/* Main content perfectly centered below navbar */}
             <div className="flex-1 flex flex-col items-center justify-center w-full px-4">
                 <div className={`${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
@@ -81,6 +85,7 @@ const Store = () => {
                     <EmailForm buttonText="Join Waitlist" placeholderText="Your email address" />
                 </div>
             </div>
+            <Footer isHushed={isHushed} />
         </div>
     );
 };
