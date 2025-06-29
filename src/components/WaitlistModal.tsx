@@ -45,7 +45,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
 
     try {
       // Send to FormSubmit for email notifications
-      const formSubmitUrl = "https://formsubmit.co/ajax/contact@hushscreentime.com";
+      const formSubmitUrl = "https://formsubmit.co/ajax/hi@hushscreentime.com";
       const formSubmitResponse = await fetch(formSubmitUrl, {
         method: "POST",
         headers: {
