@@ -7,7 +7,7 @@ interface VideoPlaceholderProps {
 
 const VideoPlaceholder = ({ className, isHushed }: VideoPlaceholderProps) => {
   const vimeoUrl =
-    "https://player.vimeo.com/video/1072827238?h=34827e902e&autoplay=1&title=0&byline=0&portrait=0";
+    "https://player.vimeo.com/video/1072827238?h=34827e902e&autoplay=1&muted=1&title=0&byline=0&portrait=0";
 
   return (
     <div className={cn("w-full px-4 py-12 text-center", className)}>
