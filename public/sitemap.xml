@@ -7,9 +7,15 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://hushscreentime.com/store</loc>
+    <loc>https://hushscreentime.com/privacy</loc>
     <lastmod>2024-12-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://hushscreentime.com/terms</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset> 
