@@ -17,7 +17,7 @@ const App = () => (
       <HushProvider>
         <div className="min-h-screen flex flex-col">
           <Toaster />
-          <Sonner position="top-center" />
+          <Sonner position="bottom-center" />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
