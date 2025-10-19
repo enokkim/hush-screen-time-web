@@ -40,7 +40,7 @@ const PrivacyPolicyPage = () => {
     }, [lastScrollY]);
 
     return (
-        <div className={`min-h-screen flex flex-col ${isHushed ? "bg-[#7a7a7a]" : "bg-[#f6f6fa]"}`}>
+        <div className={`min-h-screen flex flex-col ${isHushed ? "bg-hush-hushed-bg" : "bg-hush-unhushed-bg"}`}>
             <SEO
                 title="Privacy Policy - Hush Digital Wellness"
                 description="Learn how Hush protects your privacy and handles your data. Our comprehensive privacy policy covers data collection, usage, and your rights under GDPR."
@@ -59,7 +59,7 @@ const PrivacyPolicyPage = () => {
             />
 
             <main className="flex-1 pt-32 pb-16">
-                <div className={`max-w-4xl mx-auto px-4 ${isHushed ? 'text-white' : 'text-black'}`}>
+                <div className={`max-w-4xl mx-auto px-4 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`}>
                     <div className="mb-8">
                         <h1 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
                             Privacy Policy

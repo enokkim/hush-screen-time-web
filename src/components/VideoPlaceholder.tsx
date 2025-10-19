@@ -14,7 +14,7 @@ const VideoPlaceholder = ({ className, isHushed }: VideoPlaceholderProps) => {
       <div className="space-y-4 mb-10">
         <p className={cn(
           "text-xl md:text-2xl font-semibold max-w-2xl mx-auto transition-colors duration-700",
-          isHushed ? "text-white" : "text-black"
+          isHushed ? "text-hush-text-light" : "text-hush-text-dark"
         )}>
           See Hush in Action
         </p>

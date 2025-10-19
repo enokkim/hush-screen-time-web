@@ -58,7 +58,7 @@ const Store = () => {
     }, [lastScrollY]);
 
     return (
-        <div className={`min-h-screen flex flex-col items-center justify-center ${isHushed ? 'bg-[#7a7a7a] text-white' : 'bg-[#f6f6fa] text-black'}`}>
+        <div className={`min-h-screen flex flex-col items-center justify-center ${isHushed ? 'bg-hush-hushed-bg text-hush-text-light' : 'bg-hush-unhushed-bg text-hush-text-dark'}`}>
             <SEO
                 title="Join Hush Waitlist - Early Access to Digital Wellness App"
                 description="Join the Hush waitlist for early access to our physical key that unlocks digital distractions. Be the first to experience 40% screen time reduction."
@@ -77,7 +77,7 @@ const Store = () => {
             />
             {/* Main content perfectly centered below navbar */}
             <div className="flex-1 flex flex-col items-center justify-center w-full px-4">
-                <div className={`${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
+                <div className={`${isHushed ? 'bg-hush-hushed-card text-hush-text-light' : 'bg-hush-unhushed-card text-hush-text-dark'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
                     <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>Join the Waitlist</h1>
                     <p className="text-gray-500 mb-6 text-center" style={{ fontFamily: 'Nunito, sans-serif' }}>
                         Be the first to know when the app launches and get exclusive early access!

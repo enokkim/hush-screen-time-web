@@ -40,7 +40,7 @@ const TermsConditionsPage = () => {
     }, [lastScrollY]);
 
     return (
-        <div className={`min-h-screen flex flex-col ${isHushed ? "bg-[#7a7a7a]" : "bg-[#f6f6fa]"}`}>
+        <div className={`min-h-screen flex flex-col ${isHushed ? "bg-hush-hushed-bg" : "bg-hush-unhushed-bg"}`}>
             <SEO
                 title="Terms & Conditions - Hush Digital Wellness"
                 description="Read Hush's terms and conditions. Learn about your rights and responsibilities when using our digital wellness app and services."
@@ -59,7 +59,7 @@ const TermsConditionsPage = () => {
             />
 
             <main className="flex-1 pt-32 pb-16">
-                <div className={`max-w-4xl mx-auto px-4 ${isHushed ? 'text-white' : 'text-black'}`}>
+                <div className={`max-w-4xl mx-auto px-4 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`}>
                     <div className="mb-8">
                         <h1 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
                             Terms & Conditions

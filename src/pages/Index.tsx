@@ -192,7 +192,7 @@ const Index = () => {
 
   return (
     <div
-      className={`min-h-screen w-full flex flex-col transition-colors duration-700 ${isHushed ? "bg-[#7a7a7a]" : "bg-[#f6f6fa]"
+      className={`min-h-screen w-full flex flex-col transition-colors duration-700 ${isHushed ? "bg-hush-hushed-bg" : "bg-hush-unhushed-bg"
         }`}
     >
       <SEO />
@@ -209,9 +209,9 @@ const Index = () => {
       <main className="flex-1">
         {showShop ? (
           /* Shop/Waitlist Content */
-          <div className={`min-h-screen flex flex-col items-center justify-center pt-[96px] ${isHushed ? 'bg-[#7a7a7a] text-white' : 'bg-[#f6f6fa] text-black'}`}>
+          <div className={`min-h-screen flex flex-col items-center justify-center pt-[96px] ${isHushed ? 'bg-hush-hushed-bg text-hush-text-light' : 'bg-hush-unhushed-bg text-hush-text-dark'}`}>
             <div className="flex-1 flex flex-col items-center justify-center w-full px-4">
-              <div className={`${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
+              <div className={`${isHushed ? 'bg-hush-hushed-card text-hush-text-light' : 'bg-hush-unhushed-card text-hush-text-dark'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
                 <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>Join the Waitlist</h1>
                 <p className="text-gray-500 mb-6 text-center" style={{ fontFamily: 'Nunito, sans-serif' }}>
                   Be the first to know when the app launches and get exclusive early access!
@@ -219,7 +219,7 @@ const Index = () => {
                 <EmailForm buttonText="Join Waitlist" placeholderText="Your email address" />
                 <button
                   onClick={() => setShowShop(false)}
-                  className={`mt-6 px-4 py-2 rounded-lg transition-colors duration-300 ${isHushed ? 'text-white hover:bg-white/10' : 'text-gray-600 hover:bg-gray-100'}`}
+                  className={`mt-6 px-4 py-2 rounded-lg transition-colors duration-300 ${isHushed ? 'text-hush-text-light hover:bg-hush-text-light/10' : 'text-hush-text-dark hover:bg-hush-border'}`}
                 >
                   ← Back to Home
                 </button>
@@ -332,11 +332,11 @@ const Index = () => {
             </section>
 
             {/* Join Waitlist Section - moved up for better conversion */}
-            <section className={`w-full py-16 px-4 md:px-0 flex flex-col items-center transition-colors duration-700 ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`} aria-labelledby="waitlist-heading">
-              <div className={`max-w-3xl w-full mx-auto transition-colors duration-700 ${isHushed ? 'text-white' : 'text-black'}`}>
+            <section className={`w-full py-16 px-4 md:px-0 flex flex-col items-center transition-colors duration-700 ${isHushed ? 'bg-hush-hushed-card' : 'bg-hush-unhushed-card'}`} aria-labelledby="waitlist-heading">
+              <div className={`max-w-3xl w-full mx-auto transition-colors duration-700 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`}>
                 <div className="mb-8">
-                  <h2 id="waitlist-heading" className={`text-3xl font-bold text-center mb-4 transition-colors duration-700 ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>Join the Waitlist</h2>
-                  <p className={`text-center text-lg mb-6 ${isHushed ? 'text-gray-300' : 'text-gray-600'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+                  <h2 id="waitlist-heading" className={`text-3xl font-bold text-center mb-4 transition-colors duration-700 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>Join the Waitlist</h2>
+                  <p className={`text-center text-lg mb-6 ${isHushed ? 'text-hush-text-light/80' : 'text-hush-text-dark/70'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
                     Be the first to experience Hush and transform your relationship with technology.
                   </p>
                   <EmailForm buttonText="Join Waitlist" placeholderText="Your email address" />
@@ -345,12 +345,12 @@ const Index = () => {
             </section>
 
             {/* Carousel/Grid Section: Why It Matters & How Hush Works */}
-            <section className={`w-full flex flex-col items-center py-24 ${isHushed ? 'bg-[#181a1b]' : 'bg-white'}`} aria-labelledby="features-heading">
+            <section className={`w-full flex flex-col items-center py-24 ${isHushed ? 'bg-hush-hushed-card' : 'bg-hush-unhushed-card'}`} aria-labelledby="features-heading">
               <div className="max-w-2xl w-full mx-auto mb-8">
-                <h2 id="features-heading" className={`text-3xl font-bold text-center mb-2 px-4 md:px-0 ${isHushed ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+                <h2 id="features-heading" className={`text-3xl font-bold text-center mb-2 px-4 md:px-0 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
                   Why It Matters & How Hush Works
                 </h2>
-                <p className={`text-center text-lg px-4 md:px-0 ${isHushed ? 'text-gray-300' : 'text-gray-600'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
+                <p className={`text-center text-lg px-4 md:px-0 ${isHushed ? 'text-hush-text-light/80' : 'text-hush-text-dark/70'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
                   Reducing distractions isn't just about focus<br className="hidden sm:inline" />—it's about saving time, money, and the planet.
                 </p>
               </div>
@@ -360,11 +360,11 @@ const Index = () => {
                   <CarouselContent>
                     {carouselSlides.map((slide, idx) => (
                       <CarouselItem key={idx} className="flex justify-center">
-                        <Card className={`w-80 h-60 flex flex-col items-center justify-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'} shadow-xl`}>
+                        <Card className={`w-80 h-60 flex flex-col items-center justify-center ${isHushed ? 'bg-hush-hushed-bg text-hush-text-light' : 'bg-hush-unhushed-card text-hush-text-dark'} shadow-xl`}>
                           <CardHeader className="flex flex-col items-center">
                             <slide.icon className="w-12 h-12 mb-2" aria-hidden="true" />
                             <CardTitle className="text-2xl mb-1">{slide.title}</CardTitle>
-                            <CardDescription className="text-lg text-gray-400 mb-2 text-center">{slide.description}</CardDescription>
+                            <CardDescription className={`text-lg mb-2 text-center ${isHushed ? 'text-hush-text-light/70' : 'text-hush-text-dark/60'}`}>{slide.description}</CardDescription>
                           </CardHeader>
                           <CardContent className="text-center text-xs font-semibold uppercase tracking-widest opacity-60">
                             {slide.section}
@@ -383,7 +383,7 @@ const Index = () => {
                     <button
                       key={idx}
                       aria-label={`Go to slide ${idx + 1}`}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${carouselIndex === idx ? (isHushed ? 'bg-white' : 'bg-gray-800') : (isHushed ? 'bg-gray-500' : 'bg-gray-300')}`}
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${carouselIndex === idx ? (isHushed ? 'bg-hush-text-light' : 'bg-hush-text-dark') : (isHushed ? 'bg-hush-text-light/50' : 'bg-hush-text-dark/30')}`}
                       style={{ outline: 'none', border: 'none' }}
                       onClick={() => carouselApi && carouselApi.scrollTo(idx)}
                     />
@@ -398,12 +398,12 @@ const Index = () => {
                   return (
                     <Card
                       key={idx}
-                      className={`h-60 flex flex-col items-center justify-center ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'} shadow-xl ${isLast ? 'col-span-1 md:col-span-1 md:col-start-2' : ''}`}
+                      className={`h-60 flex flex-col items-center justify-center ${isHushed ? 'bg-hush-hushed-bg text-hush-text-light' : 'bg-hush-unhushed-card text-hush-text-dark'} shadow-xl ${isLast ? 'col-span-1 md:col-span-1 md:col-start-2' : ''}`}
                     >
                       <CardHeader className="flex flex-col items-center">
                         <slide.icon className="w-12 h-12 mb-2" aria-hidden="true" />
                         <CardTitle className="text-2xl mb-1">{slide.title}</CardTitle>
-                        <CardDescription className="text-lg text-gray-400 mb-2 text-center">{slide.description}</CardDescription>
+                        <CardDescription className={`text-lg mb-2 text-center ${isHushed ? 'text-hush-text-light/70' : 'text-hush-text-dark/60'}`}>{slide.description}</CardDescription>
                       </CardHeader>
                       <CardContent className="text-center text-xs font-semibold uppercase tracking-widest opacity-60">
                         {slide.section}
@@ -415,8 +415,8 @@ const Index = () => {
             </section>
 
             {/* Video Section */}
-            <section className={`w-full pt-16 pb-8 px-4 md:px-0 flex flex-col items-center mt-0 transition-colors duration-700 ${isHushed ? 'bg-[#181a1b]' : 'bg-white/90'}`}>
-              <div className={`max-w-3xl w-full mx-auto transition-colors duration-700 ${isHushed ? 'text-white' : 'text-black'}`}>
+            <section className={`w-full pt-16 pb-8 px-4 md:px-0 flex flex-col items-center mt-0 transition-colors duration-700 ${isHushed ? 'bg-hush-hushed-card' : 'bg-hush-unhushed-card/90'}`}>
+              <div className={`max-w-3xl w-full mx-auto transition-colors duration-700 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`}>
                 <VideoPlaceholder className="mb-8" isHushed={isHushed} />
               </div>
             </section>

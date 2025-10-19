@@ -8,7 +8,7 @@ interface PrivacyPolicyProps {
 const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ isHushed, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className={`max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl shadow-xl ${isHushed ? 'bg-[#181a1b] text-white' : 'bg-white text-black'}`}>
+      <div className={`max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl shadow-xl ${isHushed ? 'bg-hush-hushed-card text-hush-text-light' : 'bg-hush-unhushed-card text-hush-text-dark'}`}>
         <div className="p-8">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-3xl font-bold" style={{ fontFamily: 'Nunito, sans-serif' }}>
@@ -16,7 +16,7 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ isHushed, onClose }) => {
             </h1>
             <button
               onClick={onClose}
-              className={`p-2 rounded-lg transition-colors ${isHushed ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+              className={`p-2 rounded-lg transition-colors ${isHushed ? 'hover:bg-hush-text-light/10' : 'hover:bg-hush-border'}`}
               aria-label="Close"
             >
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">

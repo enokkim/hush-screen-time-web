@@ -21,74 +21,76 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    /* Unhushed state - Light green theme */
+    --background: 120 100% 97%; /* #F9FFEB */
+    --foreground: 120 50% 15%; /* Dark green text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 120 100% 98%; /* Slightly lighter green for cards */
+    --card-foreground: 120 50% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 120 100% 98%;
+    --popover-foreground: 120 50% 15%;
 
-    --primary: 142 76% 36%;
-    --primary-foreground: 355.7 100% 97.3%;
+    --primary: 120 60% 25%; /* Main green */
+    --primary-foreground: 120 100% 97%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 120 30% 90%; /* Light green secondary */
+    --secondary-foreground: 120 50% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 120 30% 90%;
+    --muted-foreground: 120 20% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 120 30% 90%;
+    --accent-foreground: 120 50% 15%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 120 100% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 142 76% 36%;
+    --border: 120 30% 85%;
+    --input: 120 30% 85%;
+    --ring: 120 60% 25%;
 
     --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 120 100% 97%;
+    --sidebar-foreground: 120 50% 15%;
+    --sidebar-primary: 120 60% 25%;
+    --sidebar-primary-foreground: 120 100% 97%;
+    --sidebar-accent: 120 30% 90%;
+    --sidebar-accent-foreground: 120 50% 15%;
+    --sidebar-border: 120 30% 85%;
+    --sidebar-ring: 120 60% 25%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Hushed state - Dark green theme */
+    --background: 120 60% 8%; /* #122907 */
+    --foreground: 120 30% 90%; /* Light green text */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 120 50% 10%; /* Slightly lighter dark green for cards */
+    --card-foreground: 120 30% 90%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 120 50% 10%;
+    --popover-foreground: 120 30% 90%;
 
-    --primary: 142 70% 45%;
-    --primary-foreground: 144.9 80.4% 10%;
+    --primary: 120 40% 60%; /* Brighter green for primary elements */
+    --primary-foreground: 120 60% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 120 30% 15%; /* Dark green secondary */
+    --secondary-foreground: 120 30% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 120 30% 15%;
+    --muted-foreground: 120 20% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 120 30% 15%;
+    --accent-foreground: 120 30% 90%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 120 30% 90%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 142 76% 36%;
+    --border: 120 30% 20%;
+    --input: 120 30% 20%;
+    --ring: 120 40% 60%;
   }
 }
 
@@ -132,7 +134,7 @@
 }
 
 .leaf-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM10 18C5.6 18 2 14.4 2 10C2 5.6 5.6 2 10 2C14.4 2 18 5.6 18 10C18 14.4 14.4 18 10 18Z' fill='%2322c55e' fill-opacity='0.05'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM10 18C5.6 18 2 14.4 2 10C2 5.6 5.6 2 10 2C14.4 2 18 5.6 18 10C18 14.4 14.4 18 10 18Z' fill='%23122907' fill-opacity='0.05'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 20px 20px;
 }

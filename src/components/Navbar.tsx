@@ -33,17 +33,17 @@ const Navbar: React.FC<NavbarProps> = ({
                     </svg>
                 </button>
                 {menuOpen && (
-                    <div className={`absolute left-0 mt-2 w-40 rounded-xl shadow-lg z-50 flex flex-col text-left ${isHushed ? 'bg-black' : 'bg-white'} ${isHushed ? '' : 'border border-gray-200'}`}>
+                    <div className={`absolute left-0 mt-2 w-40 rounded-xl shadow-lg z-50 flex flex-col text-left ${isHushed ? 'bg-hush-hushed-card' : 'bg-hush-unhushed-card'} ${isHushed ? '' : 'border border-hush-border'}`}>
                         <button
                             onClick={() => {
                                 onShopClick?.();
                                 setMenuOpen(false);
                             }}
-                            className={`px-5 py-3 font-medium text-left w-full ${isHushed ? 'text-white hover:bg-white/10' : 'text-black hover:bg-gray-100'}`}
+                            className={`px-5 py-3 font-medium text-left w-full ${isHushed ? 'text-hush-text-light hover:bg-hush-text-light/10' : 'text-hush-text-dark hover:bg-hush-border'}`}
                         >
                             Shop
                         </button>
-                        <a href="mailto:contact@hushscreen.com" className={`px-5 py-3 font-medium rounded-b-xl ${isHushed ? 'text-white hover:bg-white/10' : 'text-black hover:bg-gray-100'}`} onClick={() => setMenuOpen(false)}>Contact Us</a>
+                        <a href="mailto:contact@hushscreen.com" className={`px-5 py-3 font-medium rounded-b-xl ${isHushed ? 'text-hush-text-light hover:bg-hush-text-light/10' : 'text-hush-text-dark hover:bg-hush-border'}`} onClick={() => setMenuOpen(false)}>Contact Us</a>
                     </div>
                 )}
             </div>

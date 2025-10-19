@@ -76,6 +76,20 @@ export default {
 						DEFAULT: '#3b82f6',
 						dark: '#2563eb'
 					}
+				},
+				hush: {
+					// New green theme colors
+					'hushed-bg': '#122907',      // Dark green for hushed state
+					'hushed-card': '#1a3a0f',    // Slightly lighter dark green for cards
+					'unhushed-bg': '#F9FFEB',    // Light green for unhushed state
+					'unhushed-card': '#ffffff',  // White for cards in unhushed state
+					'primary': '#2d5a1a',        // Main green
+					'primary-light': '#4a7c2a',  // Lighter green
+					'primary-dark': '#1a3a0f',   // Darker green
+					'accent': '#6b8e4a',         // Accent green
+					'text-dark': '#122907',      // Dark green text
+					'text-light': '#f0f8e8',     // Light green text
+					'border': '#d4e6c7'          // Light green border
 				}
 			},
 			borderRadius: {
