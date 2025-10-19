@@ -41,7 +41,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
       timestamp: new Date().toISOString()
     };
 
-    console.log("Submitting waitlist data:", formData);
+    console.log("Submitting Hush token request data:", formData);
 
     try {
       // Send to FormSubmit for email notifications
@@ -54,7 +54,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
         },
         body: JSON.stringify({
           ...formData,
-          _subject: `Hush Waitlist - New Signup: ${email}`,
+          _subject: `Hush Token Request - New Signup: ${email}`,
           _captcha: "false",
           _template: "table",
           _replyto: email,
@@ -99,14 +99,14 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
       // Only check FormSubmit status for user feedback
       if (formSubmitResponse.status === 200) {
         console.log("Form submission successful");
-        toast.success("Thanks for requesting early access to Hush!");
+        toast.success("Thanks for requesting a Hush token!");
         resetForm();
         onClose();
       } else {
         throw new Error('Form submission failed');
       }
     } catch (error) {
-      console.error("Error submitting waitlist data:", error);
+      console.error("Error submitting Hush token request data:", error);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -129,7 +129,7 @@ export default function WaitlistModal({ isOpen, onClose, email: initialEmail }: 
             REQUEST EARLY ACCESS
           </DialogTitle>
           <DialogDescription className="text-gray-500 mt-2">
-            Fill out this form to join our waitlist for early access.
+            Fill out this form to receive a Hush token for early access.
           </DialogDescription>
         </DialogHeader>
 

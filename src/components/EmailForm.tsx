@@ -11,7 +11,7 @@ interface EmailFormProps {
 }
 
 const EmailForm = ({
-  buttonText = "Join Waitlist",
+  buttonText = "Receive Hush Token",
   className = "",
   placeholderText = "Enter your email address"
 }: EmailFormProps) => {

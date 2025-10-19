@@ -128,7 +128,7 @@ const Index = () => {
   ];
 
   const stats = [
-    { number: "2,500+", label: "Waitlist Members" },
+    { number: "2,500+", label: "Hush Token Recipients" },
     { number: "40%", label: "Average Screen Time Reduction" },
     { number: "95%", label: "User Satisfaction" },
   ];
@@ -212,11 +212,11 @@ const Index = () => {
           <div className={`min-h-screen flex flex-col items-center justify-center pt-[96px] ${isHushed ? 'bg-hush-hushed-bg text-hush-text-light' : 'bg-hush-unhushed-bg text-hush-text-dark'}`}>
             <div className="flex-1 flex flex-col items-center justify-center w-full px-4">
               <div className={`${isHushed ? 'bg-hush-hushed-card text-hush-text-light' : 'bg-hush-unhushed-card text-hush-text-dark'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
-                <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>Join the Waitlist</h1>
+                <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>Receive a Hush Token</h1>
                 <p className="text-gray-500 mb-6 text-center" style={{ fontFamily: 'Nunito, sans-serif' }}>
                   Be the first to know when the app launches and get exclusive early access!
                 </p>
-                <EmailForm buttonText="Join Waitlist" placeholderText="Your email address" />
+                <EmailForm buttonText="Receive Hush Token" placeholderText="Your email address" />
                 <button
                   onClick={() => setShowShop(false)}
                   className={`mt-6 px-4 py-2 rounded-lg transition-colors duration-300 ${isHushed ? 'text-hush-text-light hover:bg-hush-text-light/10' : 'text-hush-text-dark hover:bg-hush-border'}`}
@@ -331,15 +331,15 @@ const Index = () => {
               </div>
             </section>
 
-            {/* Join Waitlist Section - moved up for better conversion */}
+            {/* Receive Hush Token Section - moved up for better conversion */}
             <section className={`w-full py-16 px-4 md:px-0 flex flex-col items-center transition-colors duration-700 ${isHushed ? 'bg-hush-hushed-card' : 'bg-hush-unhushed-card'}`} aria-labelledby="waitlist-heading">
               <div className={`max-w-3xl w-full mx-auto transition-colors duration-700 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`}>
                 <div className="mb-8">
-                  <h2 id="waitlist-heading" className={`text-3xl font-bold text-center mb-4 transition-colors duration-700 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>Join the Waitlist</h2>
+                  <h2 id="waitlist-heading" className={`text-3xl font-bold text-center mb-4 transition-colors duration-700 ${isHushed ? 'text-hush-text-light' : 'text-hush-text-dark'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>Receive a Hush Token</h2>
                   <p className={`text-center text-lg mb-6 ${isHushed ? 'text-hush-text-light/80' : 'text-hush-text-dark/70'}`} style={{ fontFamily: 'Nunito, sans-serif' }}>
                     Be the first to experience Hush and transform your relationship with technology.
                   </p>
-                  <EmailForm buttonText="Join Waitlist" placeholderText="Your email address" />
+                  <EmailForm buttonText="Receive Hush Token" placeholderText="Your email address" />
                 </div>
               </div>
             </section>

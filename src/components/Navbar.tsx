@@ -47,9 +47,13 @@ const Navbar: React.FC<NavbarProps> = ({
                     </div>
                 )}
             </div>
-            {/* Center Text */}
-            <a href="/" className={`cursor-pointer ${navbarTextClass}`}>
-                <span className="font-bold tracking-widest uppercase" style={{ fontFamily: 'Nunito, sans-serif', letterSpacing: '0.18em' }}>HUSH</span>
+            {/* Center Logo */}
+            <a href="/" className="cursor-pointer">
+                <img 
+                    src="/logo.png" 
+                    alt="Hush Logo" 
+                    className="h-8 w-auto"
+                />
             </a>
             {/* Store Icon */}
             <button

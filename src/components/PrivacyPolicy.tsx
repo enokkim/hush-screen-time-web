@@ -43,7 +43,7 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ isHushed, onClose }) => {
                   <h3 className="font-medium">Personal Information</h3>
                   <p>We may collect personal information that you voluntarily provide to us, including:</p>
                   <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                    <li>Email address (for waitlist and updates)</li>
+                    <li>Email address (for Hush token and updates)</li>
                     <li>Name (optional)</li>
                     <li>Device information and usage statistics</li>
                   </ul>

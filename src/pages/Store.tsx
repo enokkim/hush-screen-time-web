@@ -60,9 +60,9 @@ const Store = () => {
     return (
         <div className={`min-h-screen flex flex-col items-center justify-center ${isHushed ? 'bg-hush-hushed-bg text-hush-text-light' : 'bg-hush-unhushed-bg text-hush-text-dark'}`}>
             <SEO
-                title="Join Hush Waitlist - Early Access to Digital Wellness App"
-                description="Join the Hush waitlist for early access to our physical key that unlocks digital distractions. Be the first to experience 40% screen time reduction."
-                keywords="hush waitlist, early access, digital wellness app, screen time reduction, focus app, productivity tool"
+                title="Receive a Hush Token - Early Access to Digital Wellness App"
+                description="Receive a Hush token for early access to our physical key that unlocks digital distractions. Be the first to experience 40% screen time reduction."
+                keywords="hush token, early access, digital wellness app, screen time reduction, focus app, productivity tool"
                 url="https://hushscreentime.com/store"
                 type="website"
             />
@@ -78,11 +78,11 @@ const Store = () => {
             {/* Main content perfectly centered below navbar */}
             <div className="flex-1 flex flex-col items-center justify-center w-full px-4">
                 <div className={`${isHushed ? 'bg-hush-hushed-card text-hush-text-light' : 'bg-hush-unhushed-card text-hush-text-dark'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
-                    <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>Join the Waitlist</h1>
+                    <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>Receive a Hush Token</h1>
                     <p className="text-gray-500 mb-6 text-center" style={{ fontFamily: 'Nunito, sans-serif' }}>
                         Be the first to know when the app launches and get exclusive early access!
                     </p>
-                    <EmailForm buttonText="Join Waitlist" placeholderText="Your email address" />
+                    <EmailForm buttonText="Receive Hush Token" placeholderText="Your email address" />
                 </div>
             </div>
             <Footer isHushed={isHushed} />
