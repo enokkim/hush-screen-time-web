@@ -80,7 +80,7 @@ const Store = () => {
                 <div className={`${isHushed ? 'bg-hush-hushed-card text-hush-text-light' : 'bg-hush-unhushed-card text-hush-text-dark'} rounded-3xl shadow-xl max-w-md w-full p-8 flex flex-col items-center`}>
                     <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>Receive a Hush Token</h1>
                     <p className="text-gray-500 mb-6 text-center" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                        Be the first to know when the app launches and get exclusive early access!
+                        The app is live! If you are interested in receiving a hush token to help test, sign up here.
                     </p>
                     <EmailForm buttonText="Receive Hush Token" placeholderText="Your email address" />
                 </div>
